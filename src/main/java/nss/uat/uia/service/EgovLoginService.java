@@ -3,8 +3,8 @@ package nss.uat.uia.service;
 import java.util.List;
 
 import egovframework.com.cmm.LoginVO;
-import four.system.service.FuncVO;
-import four.system.service.MenuVO;
+//import four.system.service.FuncVO;
+//import four.system.service.MenuVO;
 
 /**
  * 일반 로그인, 인증서 로그인을 처리하는 비즈니스 인터페이스 클래스
@@ -51,21 +51,21 @@ public interface EgovLoginService {
 	 * @param 
 	 * @return List<MenuVO>
 	 */
-	List<MenuVO> selectAdminMenuList();
+//	List<MenuVO> selectAdminMenuList();
 	
 	/**
 	 * 메뉴 권한 리스트 조회
 	 * @param roleCode
 	 * @return List<MenuVO>
 	 */
-	List<MenuVO> selectAdminAuthMenuList(String roleCode);
+//	List<MenuVO> selectAdminAuthMenuList(String roleCode);
 	
 	/**
 	 * 기능 권한 조회
 	 * @param FuncVO
 	 * @return FuncVO
 	 */
-	FuncVO selectAdminFuncAuth(FuncVO funcVo);
+//	FuncVO selectAdminFuncAuth(FuncVO funcVo);
 
 	/**
 	 * 로그인실패횟수 수정

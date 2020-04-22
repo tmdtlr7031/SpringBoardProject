@@ -17,8 +17,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
 <head>
-    <title>모바일 우편 통지서비스 v1.0</title>
-    <script src="${pageContext.request.contextPath }/mobipost/js/jquery-1.12.4.min.js"></script>
+    <title>테스트 게시판</title>
+    <script type="text/javascript" src="<c:url value='/boardresources/js/jquery-3.5.0.min.js'/>"></script>
     <script language='javascript'>
 //<![CDATA[
         <c:if test="${!empty message}">

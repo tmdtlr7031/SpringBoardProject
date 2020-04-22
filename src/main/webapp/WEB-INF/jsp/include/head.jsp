@@ -1,37 +1,30 @@
-<%
-/************************************************************
-*   @ 화면명		: header
-*   @ JSP NAME	: /jsp/include/head.jsp
-*   @ JSP작성자	: 
-*   @ 소속		: 4DEPTH
-*   @ 작성일		: 2019.07.08
-*   @ 작업이력	: 
-*************************************************************
-1		2019.07.08 	  		신규작성
-*************************************************************/
-%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- <%@ taglib prefix="codeUtil" uri="tld/codeUtil.tld"%> --%>
+
+
 <meta charset="utf-8" />
 <!-- 브라우저별 최상의 렌더링 방식 -->
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<meta name="keywords" content="관리자, 모바일 우편 통지서비스 v1.0" />
-<meta http-equiv="description" content="모바일 우편 통지서비스 v1.0 관리자 페이지 입니다." />
-<meta name="Publisher" content="(주)포뎁스">
-<meta name="Copyright" content="모바일 우편 통지서비스 v1.0">
+<meta name="keywords" content="테스트용" />
+<meta http-equiv="description" content="테스트 페이지 입니다." />
+<meta name="Publisher" content="nss">
+<meta name="Copyright" content="nss_test">
 
-<title>모바일 우편 통지서비스 v1.0</title>
+<title>테스트 헤더</title>
+<!-- favicon -->
+<link rel="shortcut icon" type="image/x-icon" href="<c:url value='${pageContext.request.contextPath }/boardresources/image/favicon.ico'/>" />
 
-<script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/jquery-1.12.4.min.js'/>"></script>
-<script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/jquery.bpopup.min.js'/>"></script>
-<script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/jquery.dotdotdot.min.js'/>"></script>
-<script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/common.js'/>"></script>
-<script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/date.js'/>"></script>
-<script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/jquery.countdown.js'/>"></script>
-<link rel="stylesheet" type="text/css" href="<c:url value='/mobipost/css/front-base.css?ver=20190214-1'/>" media="all">
-<link rel="stylesheet" type="text/css" href="<c:url value='/mobipost/css/sub.css'/>" media="all"/>
-<link rel="shortcut icon" type="image/x-icon" href="<c:url value='${pageContext.request.contextPath }/mobipost/images/common/favicon.ico'/>" />
+<!-- 부트스트랩4 필수 : 제이쿼리, popper.js -->
+<script type="text/javascript" src="<c:url value='/boardresources/js/jquery-3.5.0.min.js'/>"></script>
+<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+
 <!-- 부트스트랩 -->
-<script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/bootstrap/bootstrap.js'/>"></script>
-<link rel="stylesheet" type="text/css" href="<c:url value='/mobipost/css/bootstrap/bootstrap.css'/>" media="all">
+<script type="text/javascript" language="javascript" src="<c:url value='/boardresources/bootstrap_4.4.1/js/bootstrap.js'/>"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value='/boardresources/bootstrap_4.4.1/css/bootstrap.css'/>" media="all">

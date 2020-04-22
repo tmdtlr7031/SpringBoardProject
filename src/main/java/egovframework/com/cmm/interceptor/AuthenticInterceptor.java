@@ -34,21 +34,24 @@ public class AuthenticInterceptor extends HandlerInterceptorAdapter {
 	 * 세션에 계정정보(LoginVO)가 있는지 여부로 인증 여부를 체크한다.
 	 * 계정정보(LoginVO)가 없다면, 로그인 페이지로 이동한다.
 	 */
+	// <FIXME> 일단 인터셉터 막아놓음, dispatcher-servlet.xml에 빈으로 등록안되서 사용안하는 상태
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-		boolean isPermittedURL = false;
-
-		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-
-		if(loginVO != null){
-			return true;
-		} else if(!isPermittedURL){
-				ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
-				throw new ModelAndViewDefiningException(modelAndView);
-		}else{
-			return true;
-		}
+//		boolean isPermittedURL = false;
+//
+//		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+//
+//		if(loginVO != null){
+//			return true;
+//		} else if(!isPermittedURL){
+//				ModelAndView modelAndView = new ModelAndView("redirect:/uat/uia/egovLoginUsr.do");
+//				throw new ModelAndViewDefiningException(modelAndView);
+//		}else{
+//			return true;
+//		}
+		System.out.println("계정정보 인터셉터");
+		return true;
 	}
 
 }

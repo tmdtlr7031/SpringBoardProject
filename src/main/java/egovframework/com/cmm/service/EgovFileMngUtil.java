@@ -54,7 +54,7 @@ public class EgovFileMngUtil {
 
 	public static final int BUFF_SIZE = 2048;
 
-//<TODO> 첨부파일할때 쓰이는지 잘 모르겠음..
+
 	/**
 	 * 첨부파일에 대한 목록 정보를 취득한다.
 	 *

@@ -18,9 +18,9 @@ import egovframework.com.cmm.EgovWebUtil;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import nss.common.util.enc.SHA256;
-import four.system.service.MenuVO;
-import four.system.service.SystemService;
+//import four.system.service.MenuVO;
 import nss.uat.uia.service.EgovLoginService;
+//import four.system.service.SystemService;
 
 /**
  * 로그인관련 컨트롤러 클래스
@@ -46,12 +46,12 @@ public class EgovLoginController {
 	@Resource(name = "loginService")
 	private EgovLoginService loginService;
 	
-	@Resource(name = "systemService")
-	private SystemService systemService;
+//	@Resource(name = "systemService")
+//	private SystemService systemService;
 
 	/** EgovMessageSource */
-	@Resource(name = "egovMessageSource")
-	EgovMessageSource egovMessageSource;
+//	@Resource(name = "egovMessageSource")
+//	EgovMessageSource egovMessageSource;
 
 	/** log */
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovLoginController.class);
@@ -66,11 +66,11 @@ public class EgovLoginController {
 		
 		String clientIp = request.getRemoteAddr();
 		
-		List<LoginVO> ipList = systemService.selectUseAccessIpList();
-
-		if(!EgovWebUtil.isAccessIp(ipList, clientIp)) {	
-			return "redirect:/accessDeny.do";
-		}
+//		List<LoginVO> ipList = systemService.selectUseAccessIpList();
+//
+//		if(!EgovWebUtil.isAccessIp(ipList, clientIp)) {	
+//			return "redirect:/accessDeny.do";
+//		}
 		
 		Boolean isAuthenticated = EgovUserDetailsHelper.isAuthenticated();
 		//로그인  된 사용자의 경우 메인페이지로 이동
@@ -107,75 +107,79 @@ public class EgovLoginController {
 			return "process";
 		}
 
-		LoginVO resultVO = loginService.actionLogin(loginVO);
+//		LoginVO resultVO = loginService.actionLogin(loginVO);
 
 		
-		if (resultVO != null) {
-			if(resultVO.getFailCnt() < 5) {
-				loginVO.setUsrPwd(SHA256.encryptSHA256(loginVO.getUsrPwd(), loginVO.getUsrId()));
-	
-				if (resultVO.getUsrPwd().equals(loginVO.getUsrPwd())) {
-					List<MenuVO> menues = loginService.selectAdminAuthMenuList(resultVO.getRoleCode());
-					if(menues.size() == 0) return "egovframework/error/accessDeny";
-					
-					resultVO.setFailCnt(0);
-					loginService.updateFailCnt(resultVO);
-					LOGGER.info("로그인성공 FailCnt 초기화");
-					
-					// 업체별 사용자 로그인일 경우 Y 
-					if( "ROLE_COMPANY_USER".equals(resultVO.getRoleCode()) ) {
-						resultVO.setCompanyUseCode("Y");
-					} else {
-						resultVO.setCompanyUseCode("N");
-					}
-					
-					// 로그인 정보를 세션에 저장
-					request.getSession().setAttribute("ADMIN", resultVO);
-	
-					// 세션에서 가져온 값
-					model.put("useYn", resultVO.getUseYn()); // 사용여부
-					model.put("regdate", resultVO.getRegDt()); // 가입년월일
-					model.put("usrId", resultVO.getUsrId()); // 관리자 아이디
-					model.put("usrName", resultVO.getUsrName()); // 관리자 이름
-					model.put("usrSeq", resultVO.getUsrSeq()); // 사용자고유번호
-					model.put("success", "Y"); // 로그인 성공 여부
-					
-					String ip = request.getHeader("X-FORWARDED-FOR");
-			        if (ip == null || ip.length() == 0) {
-			            ip = request.getHeader("Proxy-Client-IP");
-			        }
-			        if (ip == null || ip.length() == 0) {
-			            ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
-			        }
-			        if (ip == null || ip.length() == 0) {
-			            ip = request.getRemoteAddr();
-			        }
-					resultVO.setIp(ip);
-					loginService.insertLoginLog(resultVO);
-					
-					model.put("action", "/main.do");
-	
-				} else {
-					if(resultVO.getFailCnt() == 4) {
-						resultVO.setFailCnt(5);
-					} else {
-						resultVO.setFailCnt(1);
-					}
-					loginService.updateFailCnt(resultVO);
-					LOGGER.info("로그인실패 FailCnt up");
-					model.put("message", "로그인 정보를 확인하여 주세요.");
-					model.put("action", "/uat/uia/egovLoginUsr.do");
-				}
-			} else {
-				LOGGER.info("로그인실패 FailCnt=5 계정잠김");
-				model.put("message", "비밀번호 5회 이상 실패하여 잠겼습니다.");
-				model.put("action", "/uat/uia/egovLoginUsr.do");
-			}
-		} else {
-			model.put("message", "로그인 정보를 확인하여 주세요.");
-			model.put("action", "/uat/uia/egovLoginUsr.do");
-		}
-
+//		if (resultVO != null) {
+//			if(resultVO.getFailCnt() < 5) {
+//				loginVO.setUsrPwd(SHA256.encryptSHA256(loginVO.getUsrPwd(), loginVO.getUsrId()));
+//	
+//				if (resultVO.getUsrPwd().equals(loginVO.getUsrPwd())) {
+//					List<MenuVO> menues = loginService.selectAdminAuthMenuList(resultVO.getRoleCode());
+//					if(menues.size() == 0) return "egovframework/error/accessDeny";
+//					
+//					resultVO.setFailCnt(0);
+//					loginService.updateFailCnt(resultVO);
+//					LOGGER.info("로그인성공 FailCnt 초기화");
+//					
+//					// 업체별 사용자 로그인일 경우 Y 
+//					if( "ROLE_COMPANY_USER".equals(resultVO.getRoleCode()) ) {
+//						resultVO.setCompanyUseCode("Y");
+//					} else {
+//						resultVO.setCompanyUseCode("N");
+//					}
+//					
+//					// 로그인 정보를 세션에 저장
+//					request.getSession().setAttribute("ADMIN", resultVO);
+//	
+//					// 세션에서 가져온 값
+//					model.put("useYn", resultVO.getUseYn()); // 사용여부
+//					model.put("regdate", resultVO.getRegDt()); // 가입년월일
+//					model.put("usrId", resultVO.getUsrId()); // 관리자 아이디
+//					model.put("usrName", resultVO.getUsrName()); // 관리자 이름
+//					model.put("usrSeq", resultVO.getUsrSeq()); // 사용자고유번호
+//					model.put("success", "Y"); // 로그인 성공 여부
+//					
+//					String ip = request.getHeader("X-FORWARDED-FOR");
+//			        if (ip == null || ip.length() == 0) {
+//			            ip = request.getHeader("Proxy-Client-IP");
+//			        }
+//			        if (ip == null || ip.length() == 0) {
+//			            ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
+//			        }
+//			        if (ip == null || ip.length() == 0) {
+//			            ip = request.getRemoteAddr();
+//			        }
+//					resultVO.setIp(ip);
+//					loginService.insertLoginLog(resultVO);
+//					
+//					model.put("action", "/main.do");
+//	
+//				} else {
+//					if(resultVO.getFailCnt() == 4) {
+//						resultVO.setFailCnt(5);
+//					} else {
+//						resultVO.setFailCnt(1);
+//					}
+//					loginService.updateFailCnt(resultVO);
+//					LOGGER.info("로그인실패 FailCnt up");
+//					model.put("message", "로그인 정보를 확인하여 주세요.");
+//					model.put("action", "/uat/uia/egovLoginUsr.do");
+//				}
+//			} else {
+//				LOGGER.info("로그인실패 FailCnt=5 계정잠김");
+//				model.put("message", "비밀번호 5회 이상 실패하여 잠겼습니다.");
+//				model.put("action", "/uat/uia/egovLoginUsr.do");
+//			}
+//		} else {
+//			model.put("message", "로그인 정보를 확인하여 주세요.");
+//			model.put("action", "/uat/uia/egovLoginUsr.do");
+//		}
+		LoginVO resultVO = new LoginVO();
+		resultVO.setUsrId("test");
+		request.getSession().setAttribute("ADMIN", resultVO);
+		model.put("message", "일단 넘어갑니다");
+		model.put("action", "/main.do");
 		model.put("function", "$(document).ready(function(){ document.frm.submit(); });");
 		return "process";
 	}

@@ -28,21 +28,25 @@
 <meta charset="utf-8"/>
     <!-- 브라우저별 최상의 렌더링 방식 -->
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <meta name="keywords" content="관리자, 모바일 우편 통지서비스 v1.0" />
-    <meta http-equiv="description" content="모바일 우편 통지서비스 v1.0 관리자 페이지 입니다." />
-    <meta name="Publisher" content="(주)포뎁스">
-    <meta name="Copyright" content="모바일 우편 통지서비스 v1.0">
+    <meta name="keywords" content="테스트용" />
+	<meta http-equiv="description" content="테스트 페이지 입니다." />
+	<meta name="Publisher" content="nss">
+	<meta name="Copyright" content="nss_test">
 
     <title>모바일 우편 통지서비스 v1.0</title>
 
-    <link rel="stylesheet" type="text/css" href="<c:url value='/mobipost/css/front-base.css'/>" media="all">
-    	<link rel="shortcut icon" type="image/x-icon" href="https://notice.kiha21.or.kr/mobipost/images/common/favicon.ico" />
-<%--     <link rel="shortcut icon" type="image/x-icon" href="<c:url value='${pageContext.request.contextPath }/mobipost/images/common/favicon.ico'/>" /> --%>
-    <script type="text/javascript" language="javascript" src="<c:url value='/mobipost/js/jquery-1.12.4.min.js'/>"></script>
-    <!--[if lt IE 9]>
-    <script type="text/javascript" src="<c:url value='/mobipost/js/html5shiv.min.js'/>"></script>
-    <![endif]-->
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="<c:url value='${pageContext.request.contextPath }/boardresources/image/favicon.ico'/>" />
+	
+	<!-- 부트스트랩4 필수 : 제이쿼리, popper.js -->
+	<script type="text/javascript" src='/boardresources/js/jquery-3.5.0.min.js'></script>
+	<script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+	
+	<!-- 부트스트랩 -->
+	<script type="text/javascript" language="javascript" src="<c:url value='/boardresources/bootstrap_4.4.1/js/bootstrap.js'/>"></script>
+	<link rel="stylesheet" type="text/css" href='/boardresources/bootstrap_4.4.1/css/bootstrap.css' media="all">
 
     <script type="text/javaScript" language="javascript">
         function actionLogin() {
@@ -65,7 +69,8 @@
 <div><!-- wrap (s) -->
     <div id="loginwrap"> <!-- loginwrap (s)-->
         <div class="lgninner">
-            <h1><img src="<c:url value='/mobipost/images/common/logo2.png'/>" alt="대한산업보건협회"></h1>
+            <img src="<c:url value='/boardresources/image/LoginCat.png'/>" alt="로그인하세요">
+            <h1>로그인 폼</h1>
             <ul>
                 <li><label for="uidinput">아이디</label><input type="text" name="usrId" title="아이디" id="uidinput" value=""
                                                             tabindex=1 placeholder="아이디"></li>
@@ -73,7 +78,7 @@
                                                              maxlength="16" value="" tabindex="5"
                                                              onKeyDown="javascript:if (event.keyCode == 13) { actionLogin(); }"
                                                              tabindex=2 placeholder="비밀번호"></li>
-                <li class="btn"><a href="javascript:actionLogin();">로그인</a></li>
+                <li class="btn btn-block"><a href="javascript:;" onclick="actionLogin(); return false;">로그인</a></li>
             </ul>
         </div>
 

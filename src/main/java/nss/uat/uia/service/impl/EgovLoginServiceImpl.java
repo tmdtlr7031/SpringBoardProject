@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 
 import egovframework.com.cmm.LoginVO;
 import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
-import four.system.service.FuncVO;
-import four.system.service.MenuVO;
-import four.uat.uia.service.EgovLoginService;
+//import four.system.service.FuncVO;
+//import four.system.service.MenuVO;
+import nss.uat.uia.service.EgovLoginService;
 
 /**
  * 일반 로그인, 인증서 로그인을 처리하는 비즈니스 구현 클래스
@@ -73,30 +73,30 @@ public class EgovLoginServiceImpl extends EgovAbstractServiceImpl implements Ego
 	 * @param 
 	 * @return List<MenuVO>
 	 */
-	@Override
-	public List<MenuVO> selectAdminMenuList() {
-		return loginDAO.selectAdminMenuList();
-	}
+//	@Override
+//	public List<MenuVO> selectAdminMenuList() {
+//		return loginDAO.selectAdminMenuList();
+//	}
 
 	/**
 	 * 메뉴 권한 리스트 조회
 	 * @param roleCode
 	 * @return List<MenuVO>
 	 */
-	@Override
-	public List<MenuVO> selectAdminAuthMenuList(String roleCode) {
-		return loginDAO.selectAdminAuthMenuList(roleCode);
-	}
+//	@Override
+//	public List<MenuVO> selectAdminAuthMenuList(String roleCode) {
+//		return loginDAO.selectAdminAuthMenuList(roleCode);
+//	}
 
 	/**
 	 * 기능 권한 조회
 	 * @param FuncVO
 	 * @return FuncVO
 	 */
-	@Override
-	public FuncVO selectAdminFuncAuth(FuncVO funcVo) {
-		return loginDAO.selectAdminFuncAuth(funcVo);
-	}
+//	@Override
+//	public FuncVO selectAdminFuncAuth(FuncVO funcVo) {
+//		return loginDAO.selectAdminFuncAuth(funcVo);
+//	}
 
 	/**
 	 * 로그인실패횟수 수정

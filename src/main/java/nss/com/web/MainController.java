@@ -1,14 +1,3 @@
-/**
- * ===============================================
- * Copyright(c) 4DEPTH 2017
- *
- * @fileName MngMainController.java
- * @author Chang-il Jeon
- * @version 1.0
- * <p>
- * =================================================
- * @since 2017. 2. 1.
- */
 package nss.com.web;
 
 import java.io.IOException;
@@ -28,15 +17,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import egovframework.com.cmm.EgovMessageSource;
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
-import four.system.service.MenuVO;
-import four.uat.uia.service.EgovLoginService;
+//import four.system.service.MenuVO;
+import nss.uat.uia.service.EgovLoginService;
 
 @Controller
 public class MainController {
 
-    /** EgovMessageSource */
-    @Resource(name = "egovMessageSource")
-    EgovMessageSource egovMessageSource;
+//    /** EgovMessageSource */
+//    @Resource(name = "egovMessageSource")
+//    EgovMessageSource egovMessageSource;
     
     /** EgovLoginService */
 	@Resource(name = "loginService")
@@ -51,10 +40,11 @@ public class MainController {
     	
 //        return "main";
 
+    	// get방식처럼 url뒤에 &로 값이 넘어감
     	redirectAttributes.addAttribute("menuOrderChk", 1002);
     	redirectAttributes.addAttribute("prtMenuSeqChk", 1);
     	
-    	return "redirect:/dashboard/selectDashboardList.do";
+    	return "redirect:/dashboard/selectDashBoardList.do";
     }
 
     @RequestMapping("/left.do")
@@ -62,8 +52,8 @@ public class MainController {
         LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
         model.addAttribute("LoginVO",loginVO);
         
-        List<MenuVO> menues = loginService.selectAdminAuthMenuList(loginVO.getRoleCode());
-        model.addAttribute("menues", menues);
+//        List<MenuVO> menues = loginService.selectAdminAuthMenuList(loginVO.getRoleCode());
+//        model.addAttribute("menues", menues);
         model.addAttribute("currentMenuOdr", reqMap.get("menuOrderChk"));
         
         return "include/left";
@@ -74,8 +64,8 @@ public class MainController {
         LoginVO loginVO = new LoginVO();
         loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
         
-        loginVO = loginService.selectLastLoginTime(loginVO.getUsrId());
-        model.addAttribute("LoginVO",loginVO);
+//        loginVO = loginService.selectLastLoginTime(loginVO.getUsrId());
+//        model.addAttribute("LoginVO",loginVO);
         
         return "include/menuTopBar";
     }

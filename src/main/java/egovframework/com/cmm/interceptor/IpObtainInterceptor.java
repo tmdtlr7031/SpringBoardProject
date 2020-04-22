@@ -25,17 +25,17 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
  */
 
 public class IpObtainInterceptor extends HandlerInterceptorAdapter {
- 
+	// <FIXME> 일단 인터셉터 막아놓음, dispatcher-servlet.xml에 빈으로 등록안되서 사용안하는 상태
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
- 
-		String clientIp = request.getRemoteAddr();
- 
-		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
- 
-		if (loginVO != null) {
-			loginVO.setIp(clientIp);
-		}
+		System.out.println("IP 인터셉터");
+//		String clientIp = request.getRemoteAddr();
+// 
+//		LoginVO loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
+// 
+//		if (loginVO != null) {
+//			loginVO.setIp(clientIp);
+//		}
  
 		return true;
 	}
