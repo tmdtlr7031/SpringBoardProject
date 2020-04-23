@@ -4,32 +4,28 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<link rel="stylesheet" type="text/css" href="<c:url value='/boardresources/css/dashboard.css'/>" media="all">
-
-<!--     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow"> -->
-<!-- 		<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a> -->
-<!-- 		<ul class="navbar-nav px-3"> -->
-<!-- 			<li class="nav-item text-nowrap"> -->
-<%-- 			  <input class="form-control form-control-dark w-100" value='<c:out value="(수정해야함)관리자님 환영합니다." />'> --%>
-<%-- 			  <span class="navbar-brand col-sm-3 col-md-2 mr-0">마지막 접속시간&nbsp;<c:out value="(수정해야함)2020-04-22 16:29:30" />&nbsp;<em id="logTimer"></em></span> --%>
-<!-- 			  <span class="navbar-brand col-sm-3 col-md-2 mr-0"><a href="javascript:;" onclick="loginExtension(); return false;">로그인연장</a></span> -->
-<%-- 		      <a class="nav-link" href="${pageContext.request.contextPath }/actionLogout.do">Sign out</a> --%>
-<!-- 		    </li> -->
-<!-- 	  	</ul> -->
-<!-- 	</nav> -->
-		<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-		  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
-		  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-		  <ul class="navbar-nav px-3">
-		    <li class="nav-item text-nowrap">
-		      <a class="nav-link" href="#">Sign out</a>
-		    </li>
-		  </ul>
-		</nav>
-
-<!-- 일단 어디에 합칠지 고민.. -->
+<style>
+	.topbar {background-color: #25476a;text-align: right;padding: 0px 25px 0 241px;height: 60px;line-height: 35px;font-size: 0;min-width: 1060px;/* border-bottom: 1px solid #1b3958; */}
+	.topbar span{cursor: pointer;color: #fff;font-weight: normal;display:inline-block;zoom:1;*display:inline;_display:inline;padding: 0 0 0 13px;font-size: 13px;line-height: 60px;height: 60px;}
+	.topbar span.intimed{border: 0;}
+	.topbar span a{color: #ffffff;padding: 7px 13px 7px 7px;border-radius: 3px;/* background: #ffffff; *//* border: 1px solid #48a76e; */border: 1px solid rgba(255,255,255,0.7);}
+	.topbar img{margin-right: 9px;margin-top: -3px;}
+	.topbar span.last {border-left: 0;}
+	.topbar span.last:last-child{background: none !important;}
+	.topbar span.txtle {border:0;padding: 0;}
+</style>
+		
+	<div class="topbar">
+	    <span class="txtle flLeft"><a href="/myPage.do">관리자님 환영합니다.</a></span>
+	    <span class="intimed flLeft">마지막 접속시간&nbsp;  2020-04-23 10:03:03&nbsp;<em id="logTimer"></em></span>
+	    <span class="exten flLeft"><a href="javascript:;" onclick="loginExtension(); return false;">로그인연장</a></span>
+		<span class="last"><a href="/actionLogout.do">로그아웃</a></span>
+		<!-- 190419 (s) -->
+		<span class="last" style="background-color: #252525;"><a>임시용</a></span>
+		<!-- //190419 (e) -->
+	</div>
+		
 <script type="text/javascript">
-
     // 로그인
     <c:if test="${!empty LoginVO}">
 

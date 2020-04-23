@@ -41,8 +41,8 @@ public class MainController {
 //        return "main";
 
     	// get방식처럼 url뒤에 &로 값이 넘어감
-    	redirectAttributes.addAttribute("menuOrderChk", 1002);
-    	redirectAttributes.addAttribute("prtMenuSeqChk", 1);
+//    	redirectAttributes.addAttribute("menuOrderChk", 1002);
+//    	redirectAttributes.addAttribute("prtMenuSeqChk", 1);
     	
     	return "redirect:/dashboard/selectDashBoardList.do";
     }

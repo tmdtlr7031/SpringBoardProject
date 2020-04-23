@@ -37,9 +37,6 @@
 	    <mvc:interceptor>
 		     <mvc:mapping path="/**/*.do" />
 		     <mvc:exclude-mapping path="/**/*Ajax.do" />
-		     <mvc:exclude-mapping path="/sample/**/*.do" />
-		     <mvc:exclude-mapping path="/sample/mobipost.do" />
-		     <mvc:exclude-mapping path="/sample/mobipostNt.do" />
 		     <mvc:exclude-mapping path="/css/css.do" />
 		     <mvc:exclude-mapping path="/validator.do" />
 		     <mvc:exclude-mapping path="/uat/uia/egovLoginUsr.do" />
@@ -49,8 +46,7 @@
 		     <mvc:exclude-mapping path="/menuTopBar.do" />
 		     <mvc:exclude-mapping path="/authDeny.do" />
 		     <mvc:exclude-mapping path="/accessDeny.do" />
-		     <mvc:exclude-mapping path="/cmm/fms/**/*.do" />
-		     <mvc:exclude-mapping path="/pdf/**/*.do" />
+<!-- 		     <mvc:exclude-mapping path="/cmm/fms/**/*.do" /> -->
 		     <bean class="nss.log.wlg.web.EgovWebLogInterceptor" />
 	    </mvc:interceptor>
 	 </mvc:interceptors>

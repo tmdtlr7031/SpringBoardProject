@@ -12,7 +12,7 @@
 
 	 <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="sqlSessionFactoryBeanName" value="sqlSession" />
-        <property name="basePackage" value="/nss/sample/mappers" />
+        <property name="basePackage" value="/nss/**/mappers/*.java" />
     </bean>	
 
 	<!-- MapperConfigurer setup for MyBatis Database Layer with @Mapper("deptMapper") in DeptMapper Interface -->

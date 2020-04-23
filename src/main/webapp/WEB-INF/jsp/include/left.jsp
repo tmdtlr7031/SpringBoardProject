@@ -30,11 +30,15 @@
 <!-- <input type="hidden" name="prtMenuSeqChk" id="prtMenuSeqChk"/> -->
 <%-- </form> --%>
 
-<h1><a href=";" title="홈으로">바디의 레프트</a></h1>
+<style>
+	#header {position: absolute;z-index: 1;float: left;width: 230px;min-height: 100%;overflow-x:hidden;background-color: #fff;/* border-right: 1px solid #262626; */box-shadow: 0 0 5px rgba(0,0,0,0.2);}
+</style>
+
+<h1>바디의 레프트</h1>
 <div class="gnbwrp">
     <nav id="gnb">
         <ul class="gnbtab">
-        	<li>레프트</li>
+        	<li>하위메뉴</li>
         </ul>
     </nav> 
 </div>

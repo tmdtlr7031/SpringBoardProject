@@ -25,6 +25,8 @@
 <script type="text/javascript" src="<c:url value='/boardresources/js/jquery-3.5.0.min.js'/>"></script>
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 
+<script type="text/javascript" src="<c:url value='/boardresources/js/jquery.countdown.js'/>"></script>
+
 <!-- 부트스트랩 -->
 <script type="text/javascript" language="javascript" src="<c:url value='/boardresources/bootstrap_4.4.1/js/bootstrap.js'/>"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value='/boardresources/bootstrap_4.4.1/css/bootstrap.css'/>" media="all">

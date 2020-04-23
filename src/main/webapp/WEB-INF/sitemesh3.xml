@@ -11,16 +11,8 @@
     <mapping path="/*" decorator="/WEB-INF/decorator/ManagerDecorator.jsp"/>
 
     <!--제외-->
-<!--     <mapping path="/sample/testTmot.do" exclue="true"/> api 테스트용
-    <mapping path="/sample/testTmotResult.do" exclue="true"/> api 테스트용
-    <mapping path="/sample/testTmotResultAddKt.do" exclue="true"/> api 테스트용
-	<mapping path="/sample/testToken.do" exclue="true"/> api 테스트용
-    <mapping path="/sample/testTokenResult.do" exclue="true"/> api 테스트용 -->
-    <mapping path="/sample/mobipost.do" exclue="true"/>
-    <mapping path="/sample/mobipostNt.do" exclue="true"/>
     <mapping path="/index.do" exclue="true"/>
     <mapping path="/error/*.do" exclue="true"/>
-    <mapping path="**/**/*ND.do" exclue="true"/>
     <mapping path="/**/*Pop.do" exclue="true"/>
     <mapping path="*.json*" exclue="true"/>
     <mapping path="/uat/uia/egovLoginUsr.do" exclue="true"/>
@@ -28,11 +20,11 @@
     <mapping path="/actionLogout.do" exclue="true"/>
     <mapping path="/accessDeny.do" exclue="true"/>
     <mapping path="/keepSession.do" exclue="true"/>
-    <mapping path="/cmm/fms/*" exclue="true"/>
+<!--     <mapping path="/cmm/fms/*" exclue="true"/> -->
     <mapping path="/**/insert*.do" exclue="true"/>
     <mapping path="/**/update*.do" exclue="true"/>
     <mapping path="/**/delete*.do" exclue="true"/>
     <mapping path="/**/*Excel*.do" exclue="true"/>
-    <mapping path="**/*.jsp" exclue="true"/>
+<!--     <mapping path="**/*.jsp" exclue="true"/> --> <!-- 왜.jsp도 하는지 모르겠..으니 주석처리함 -->
 <!--     <mapping path="/pdf/**/*.do" exclue="true"/> -->
 </sitemesh>
