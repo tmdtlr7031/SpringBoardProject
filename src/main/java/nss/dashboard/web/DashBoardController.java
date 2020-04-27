@@ -113,4 +113,8 @@ public class DashBoardController {
 		//		엑셀생성 영역(e)
 	}
 	
+	@RequestMapping(value="/dashboard/selectExcelLayerPop.do")
+	public String selectExcelLayerPop() {
+		return "/dashboard/selectExcelLayerPop";
+	}
 }
