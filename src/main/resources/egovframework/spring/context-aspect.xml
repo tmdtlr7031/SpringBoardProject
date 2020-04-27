@@ -7,6 +7,10 @@
 	<aop:config>
 		<aop:pointcut id="serviceMethod" expression="execution(* nss..impl.*Impl.*(..))" />
 
+		<!--
+			ServiceImpl 클래스에서 Exception이 발생한 경우(after-throwing인 경우)에 transfer()메소드에서 처리
+			상세설명: https://www.egovframe.go.kr/wiki/doku.php?id=egovframework:rte2:fdl:aop:egovrteaopguide 
+		-->
 		<aop:aspect ref="exceptionTransfer">
 			<aop:after-throwing throwing="exception" pointcut-ref="serviceMethod" method="transfer" />
 		</aop:aspect>
