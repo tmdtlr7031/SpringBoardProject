@@ -17,8 +17,14 @@ public class DashBoardServiceImpl implements DashBoardService{
 	@Resource(name="dashBoardMapper")
 	DashBoardMapper dashBoardMapper;
 	
+	
 	@Override
-	public List<DashBoardVO> selectTestList(DashBoardVO dashBoardVO) throws Exception {
-		return null;
+	public List<DashBoardVO> selectTestList(DashBoardVO dashBoardVO) {
+		return dashBoardMapper.selectTestList(dashBoardVO);
+	}
+
+	@Override
+	public int selectTestListCnt(DashBoardVO dashBoardVO) {
+		return dashBoardMapper.selectTestListCnt(dashBoardVO);
 	}
 }

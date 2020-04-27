@@ -4,9 +4,6 @@ import nss.com.service.DefaultVO;
 
 public class DashBoardVO extends DefaultVO {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	// 정해진게 없으니 일단 String으로 선언
@@ -15,7 +12,21 @@ public class DashBoardVO extends DefaultVO {
 	private String orderProduct;
 	private int orderCnt;
 	private String orderStatus;
+	private String regDt;
+	private String excelYn = "N";
 	
+	public String getExcelYn() {
+		return excelYn;
+	}
+	public void setExcelYn(String excelYn) {
+		this.excelYn = excelYn;
+	}
+	public String getRegDt() {
+		return regDt;
+	}
+	public void setRegDt(String regDt) {
+		this.regDt = regDt;
+	}
 	public int getOrderCode() {
 		return orderCode;
 	}

@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <style>
-	.topbar {background-color: #25476a;text-align: right;padding: 0px 25px 0 241px;height: 60px;line-height: 35px;font-size: 0;min-width: 1060px;/* border-bottom: 1px solid #1b3958; */}
+	.topbar {background-color: #8C8C8C;text-align: right;padding: 0px 25px 0 241px;height: 60px;line-height: 35px;font-size: 0;min-width: 1060px;/* border-bottom: 1px solid #1b3958; */}
 	.topbar span{cursor: pointer;color: #fff;font-weight: normal;display:inline-block;zoom:1;*display:inline;_display:inline;padding: 0 0 0 13px;font-size: 13px;line-height: 60px;height: 60px;}
 	.topbar span.intimed{border: 0;}
 	.topbar span a{color: #ffffff;padding: 7px 13px 7px 7px;border-radius: 3px;/* background: #ffffff; *//* border: 1px solid #48a76e; */border: 1px solid rgba(255,255,255,0.7);}

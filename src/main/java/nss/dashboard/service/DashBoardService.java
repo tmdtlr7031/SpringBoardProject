@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface DashBoardService {
 	
-	public List<DashBoardVO> selectTestList(DashBoardVO dashBoardVO) throws Exception;
+	public List<DashBoardVO> selectTestList(DashBoardVO dashBoardVO);
+
+	public int selectTestListCnt(DashBoardVO dashBoardVO);
 
 }

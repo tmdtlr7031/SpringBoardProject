@@ -224,52 +224,7 @@ public class XlsxUtil{
         		}
         		totalRow++;
         		
-    		} else {
-    			
-    			/* 송신예약관리 */
-        		int cnt = 0; // 행 추가 시점으로 사용
-        		newSheet.addMergedRegion(new CellRangeAddress(3, 4, 0, 0)); // no
-    			newSheet.addMergedRegion(new CellRangeAddress(3, 4, 1, 1)); // 센터명
-    			newSheet.addMergedRegion(new CellRangeAddress(3, 4, 2, 2)); // 통지서
-    			newSheet.addMergedRegion(new CellRangeAddress(3, 4, 3, 3)); // 상태
-    			newSheet.addMergedRegion(new CellRangeAddress(3, 4, 4, 4)); // 송신대상
-    			newSheet.addMergedRegion(new CellRangeAddress(3, 4, 5, 5)); // 접수일시
-    			newSheet.addMergedRegion(new CellRangeAddress(3, 3, 6, 7)); // 대상입수
-    			
-        		for(String topRow : topRows) {
-        			
-        			// 행 추가 후 병합된 곳 스타일 맞춰주기 
-    				if (totalRow == 4 && cellNum == 0){
-    					for (int i = 0; i < 6; i++) {
-    						initHeaderStyle();
-    						headerCell = headerRow.createCell(cellNum++);
-    						headerCell.setCellStyle(headerStyle);
-    					}
-    				}
-        			
-        			initHeaderStyle();
-        			headerCell = headerRow.createCell(cellNum++);
-        			headerCell.setCellValue(getHeaderRich(topRow));
-        			headerCell.setCellStyle(headerStyle);
-        			newSheet.autoSizeColumn(cellNum);
-        			newSheet.setColumnWidth(cellNum, (newSheet.getColumnWidth(cellNum)+2000));
-        			cnt++;
-        			
-        			// 마지막으로 병합된 셀 스타일 맞춰주기용
-        			if(totalRow == 3 && cellNum == 7){
-        				headerCell = headerRow.createCell(cellNum++); 
-            			headerCell.setCellStyle(headerStyle);
-            			newSheet.autoSizeColumn(cellNum);
-            			newSheet.setColumnWidth(cellNum, (newSheet.getColumnWidth(cellNum)+2000));
-        			}
-        			
-        			if (cnt == 7) {
-        				headerRow = newSheet.createRow(++totalRow);
-        				cellNum = 0;
-    				}
-        		}
-        		totalRow++;
-			}
+    		}
     		
 		}
     	
