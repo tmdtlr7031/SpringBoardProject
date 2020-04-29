@@ -76,6 +76,13 @@
 		var loading = $('<div id="loading" class="loading"></div><img id="loading_img" alt="loading" src="${img}" />').appendTo(document.body).hide();
 		$(window).ajaxStart(function(){loading.show(); }) // ajax 도는 중이면 로딩 show
 				 .ajaxStop(function(){loading.hide();  });
+		
+		/* 페이지유닛  이벤트 */
+		$('select[name="pageUnit"]').on('change', function(){
+			document.listFrm.pageIndex.value = 1;
+			document.listFrm.action = "${pageContext.request.contextPath }/dashboard/selectDashBoardList.do";
+			document.listFrm.submit();
+		});
 	});
 
 
@@ -121,7 +128,7 @@
 		$.ajax({
 			type : "POST" ,
 			enctype: 'multipart/form-data',
-			url : '<c:url value="/dashboard/insertDashBoardExeclFile.do"/>',
+			url : '<c:url value="/dashboard/insertDashBoardExcelFile.do"/>',
 			cache : false ,
 			processData: false, // multipart 시 필수
             contentType: false, // multipart 시 필수
@@ -206,6 +213,12 @@
 		document.listFrm.submit();
 	}
 	
+	/* 엑셀 업로드 양식 다운로드 */
+	function downloadExcelForm() {
+		document.listFrm.action = "${pageContext.request.contextPath }/dashboard/DashBoardExcelFormDownload.do";
+		document.listFrm.submit();
+	}
+	
 	//윈도우 팝업
 // 	function goDetailPop(searchDate, type) {
 		
@@ -236,13 +249,13 @@
 //     	popup.focus();
 //     }
 	
+	
 </script>
 
 <div class="usrposit"></div>
 <div id="maininner"><!-- maininner (s)-->
 	<form name="listFrm" id="listFrm" method="post">
 		<input type="hidden" name="pageIndex" value='<c:out value="${comonVO.pageIndex}" />'>
-<!-- 		<input type="hidden" name="pageUnit"> -->
 
 		<div style="float: left;">
 			전체 | <strong><fmt:formatNumber value="${paginationInfo.totalRecordCount}" /></strong>
@@ -251,7 +264,12 @@
 		<div style="float: right;">
 			<label style="background-color: #8C8C8C; color: white; cursor: pointer; padding: 5px 12px 5px 12px;" onclick="goPop();">엑셀 업로드</label> 
 			<button onclick="fnExcelDownload();">엑셀다운로드</button>
-			<select><option>페이지수</option></select>
+			<select name="pageUnit">
+				<option value="5"<c:if test="${comonVO.pageUnit eq 5}">selected="selected"</c:if>>5</option>
+				<option value="10"<c:if test="${comonVO.pageUnit eq 10}">selected="selected"</c:if>>10</option>
+				<option value="30"<c:if test="${comonVO.pageUnit eq 30}">selected="selected"</c:if>>30</option>
+				<option value="50"<c:if test="${comonVO.pageUnit eq 50}">selected="selected"</c:if>>50</option>
+			</select>
 		</div>
 		
 		<div>

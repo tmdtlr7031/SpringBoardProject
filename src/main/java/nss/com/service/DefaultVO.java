@@ -31,7 +31,7 @@ public class DefaultVO implements Serializable {
 	/**
 	 * 페이지갯수
 	 */
-	private int pageUnit = 30;
+	private int pageUnit = 10;
 
 	/**
 	 * 페이지사이즈

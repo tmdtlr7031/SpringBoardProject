@@ -4,8 +4,11 @@
 <configuration>
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL" /> <!-- 매핑되는 파라미터가 Null인경우 컬럼에 null값이 들어가게 설정-->
 	</settings>
     <typeAliases>
+		<typeAlias	alias="DefaultVO" type="nss.com.service.DefaultVO"/>
+		<typeAlias	alias="BoardFileVO" type="nss.com.service.BoardFileVO"/>
 		<typeAlias	alias="DashBoardVO" type="nss.dashboard.service.DashBoardVO"/>
     </typeAliases>
     

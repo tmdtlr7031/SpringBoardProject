@@ -1,6 +1,8 @@
 package nss.dashboard.web;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,7 @@ import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
+import egovframework.com.utl.fcc.service.EgovFormBasedFileUtil;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import nss.common.util.XlsxUtil;
 import nss.dashboard.service.DashBoardService;
@@ -122,14 +125,22 @@ public class DashBoardController {
 		//		엑셀생성 영역(e)
 	}
 	
+	/**
+	 * 엑셀 업로드 팝업 호출
+	 *
+	 */
 	@RequestMapping(value="/dashboard/selectExcelLayerPop.do")
 	public String selectExcelLayerPop() {
 		return "/dashboard/selectExcelLayerPop";
 	}
 	
+	/**
+	 * 엑셀 업로드 처리 Ajax
+	 *
+	 */
 	@ResponseBody
-	@RequestMapping(value="/dashboard/insertDashBoardExeclFile.do", produces="application/json; charset=utf-8;")
-	public String insertDashBoardExeclFile(final MultipartHttpServletRequest multiReq) {
+	@RequestMapping(value="/dashboard/insertDashBoardExcelFile.do", produces="application/json; charset=utf-8;")
+	public String insertDashBoardExcelFile(final MultipartHttpServletRequest multiReq) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		final Map<String,MultipartFile> files = multiReq.getFileMap();
@@ -145,4 +156,41 @@ public class DashBoardController {
 		
 		return new Gson().toJson(resultMap);
 	}
+	
+	/**
+	 * 엑셀 업로드 양식 다운로드
+	 * @throws Exception 
+	 *
+	 */
+	@RequestMapping(value="/dashboard/DashBoardExcelFormDownload.do")
+	public void DashBoardExcelFormDownload(HttpServletResponse res) throws Exception {
+//		String uploadPath = resultList.getFilePath() + resultList.getFileNm();
+		String uploadPath = "C://Users//4depth//Downloads/엑셀업로드테스트용.xls"; // 위에 주석된것처럼 풀패스가 필요
+		File file = new File(uploadPath);
+		
+		// 기존버전
+//		byte fileByte[] = FileUtils.readFileToByteArray(file);
+//		
+//		response.setContentType("application/octet-stream");
+//		response.setContentLength(fileByte.length);
+//		response.setHeader("Content-Disposition", "attachment; fileName=\"" + URLEncoder.encode(resultList.getOrgFileNm(),"UTF-8")+"\";");
+//		response.setHeader("Content-Transfer-Encoding", "binary");
+//		response.getOutputStream().write(fileByte);
+//		
+//		response.getOutputStream().flush();
+//		response.getOutputStream().close();
+		
+		if(file.exists()){
+			EgovFormBasedFileUtil.downloadFileCustom(res, uploadPath, "엑셀업로드테스트용.xls");
+		} else {
+			res.setCharacterEncoding("UTF-8");
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+			out.println("<script>alert('파일이 존재하지 않습니다.'); history.go(-1);</script>");
+			out.flush();
+		}
+		
+	}
+	
+	
 }

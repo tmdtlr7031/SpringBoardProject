@@ -6,9 +6,8 @@
 	<select id="selectTestList" parameterType="DashBoardVO" resultType="DashBoardVO">
 		SELECT * 
 			FROM nss_board 
-			
+			WHERE board_code = '01'
 			ORDER BY REG_DT DESC
-			 
 			<if test='"N".equals(excelYn)'>
 	 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} 는 아래와 같은 뜻-->
 			    LIMIT #{firstIndex}, #{recordCountPerPage} 
@@ -22,30 +21,41 @@
 	
 	<insert id="insertDashBoardOne" parameterType="DashBoardVO">
 		INSERT INTO nss_board
-			(   user_name
+			(   
+				board_code
+			  ,	board_seq
+			  ,	user_name
 		 	  , order_product
 		 	  , order_cnt
 		 	  , order_status
+		 	  , reg_id
 		 	  , reg_dt
 		 	 )
 		VALUES
 			(
-			  #{userName}
+			  #{boardCode}
+			  , #{boardSeq}
+			  , #{userName}
 			  , #{orderProduct}
 			  , #{orderCnt}
 			  , #{orderStatus}
-			  , current_timestamp()
+			  , '하드코딩'
+			  , now()
 			)
 	</insert>
 	
 	<insert id="insertDashBoardAll" parameterType="DashBoardVO">
 		INSERT INTO nss_board
-			( user_name, order_product, order_cnt, order_status, reg_dt )
+			( board_code, board_seq, order_code, user_name, order_product, order_cnt, order_status, reg_dt )
 		VALUES
 		<foreach collection ="paramList" item="item" open=" " separator=", " close=" ">
 			<![CDATA[
-				( #{item.userName}, #{item.orderProduct}, #{item.orderCnt}, #{item.orderStatus}, current_timestamp() )
+				( #{item.boardCode}, #{item.boardSeq}, #{item.orderCode}, #{item.userName}, #{item.orderProduct}, #{item.orderCnt}, #{item.orderStatus}, now() )
 			]]>
 		</foreach>
 	</insert>
+	
+	<select id="selectGetBoardSeq" parameterType="String" resultType="int">
+		select max(board_seq) from nss_board where board_code = #{_param}
+	</select>
 </mapper>

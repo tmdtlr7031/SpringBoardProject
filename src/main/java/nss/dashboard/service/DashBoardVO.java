@@ -10,17 +10,45 @@ public class DashBoardVO extends DefaultVO {
 	private static final long serialVersionUID = 1L;
 	
 	// 정해진게 없으니 일단 String으로 선언
+	private String boardCode;
+	private int boardSeq;
 	private int orderCode;
 	private String userName;
 	private String orderProduct;
 	private int orderCnt;
 	private String orderStatus;
 	private String regDt;
+	private String updId;
+	private String updDt;
 	private String excelYn = "N";
 	
 	private List<DashBoardVO> paramList = new ArrayList<DashBoardVO>();
 	
 	
+	public String getBoardCode() {
+		return boardCode;
+	}
+	public void setBoardCode(String boardCode) {
+		this.boardCode = boardCode;
+	}
+	public int getBoardSeq() {
+		return boardSeq;
+	}
+	public void setBoardSeq(int boardSeq) {
+		this.boardSeq = boardSeq;
+	}
+	public String getUpdId() {
+		return updId;
+	}
+	public void setUpdId(String updId) {
+		this.updId = updId;
+	}
+	public String getUpdDt() {
+		return updDt;
+	}
+	public void setUpdDt(String updDt) {
+		this.updDt = updDt;
+	}
 	public List<DashBoardVO> getParamList() {
 		return paramList;
 	}

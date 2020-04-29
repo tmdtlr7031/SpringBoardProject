@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -234,6 +235,54 @@ public class EgovFormBasedFileUtil {
 		}
 	}
 
+	/**
+	 * 파일을 Download 처리한다.(커스텀버전)
+	 *
+	 * @param response
+	 * @param where
+	 * @param serverSubPath
+	 * @param physicalName
+	 * @param original
+	 * @throws Exception
+	 */
+	public static void downloadFileCustom(HttpServletResponse response, String downFileName, String originalFileNm) throws Exception {
+
+		File file = new File(EgovWebUtil.filePathBlackList(downFileName));
+
+		if (!file.exists()) {
+			throw new FileNotFoundException(downFileName);
+		}
+
+		if (!file.isFile()) {
+			throw new FileNotFoundException(downFileName);
+		}
+
+		byte[] b = new byte[BUFFER_SIZE];
+
+		originalFileNm = originalFileNm.replaceAll("\r", "").replaceAll("\n", "");
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(originalFileNm, "UTF-8") + "\";");
+		response.setHeader("Content-Transfer-Encoding", "binary");
+		response.setHeader("Pragma", "no-cache");
+		response.setHeader("Expires", "0");
+
+		BufferedInputStream fin = null;
+		BufferedOutputStream outs = null;
+
+		try {
+			fin = new BufferedInputStream(new FileInputStream(file));
+			outs = new BufferedOutputStream(response.getOutputStream());
+
+			int read = 0;
+
+			while ((read = fin.read(b)) != -1) {
+				outs.write(b, 0, read);
+			}
+		} finally {
+			EgovResourceCloseHelper.close(outs, fin);
+		}
+	}
+	
 	/**
 	 * 이미지에 대한 미리보기 기능을 제공한다.
 	 *

@@ -17,4 +17,5 @@ public interface DashBoardMapper {
 	public int selectTestListCnt(DashBoardVO dashBoardVO);
 	public int insertDashBoardOne(DashBoardVO dashBoardVO);
 	public int insertDashBoardAll(DashBoardVO paramVO);
+	public int selectGetBoardSeq(String param);
 }

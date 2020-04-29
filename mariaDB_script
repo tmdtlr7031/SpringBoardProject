@@ -1,43 +1,25 @@
-CREATE TABLE test.nss_board (
-	order_code BIGINT NOT NULL AUTO_INCREMENT COMMENT '주문번호',
-	user_name varchar(100) NULL COMMENT '고객명',
-	order_product varchar(100) NULL COMMENT '주문상품',
-	order_cnt BIGINT NULL COMMENT '주문수량',
-	order_status varchar(100) NULL COMMENT '주문상태',
-	reg_dt TIMESTAMP DEFAULT now() NULL COMMENT '등록일시'
-	CONSTRAINT nss_board_pk PRIMARY KEY (order_code)
-)
-ENGINE=InnoDB
-DEFAULT CHARSET=utf8
-COLLATE=utf8_general_ci
-COMMENT='대시보드 테이블';
+CREATE TABLE `nss_board` (
+  `board_code` char(2) NOT NULL COMMENT '게시판구분코드',
+  `board_seq` bigint(20) unsigned NOT NULL COMMENT '게시글 일련번호',
+  `order_code` bigint(20) unsigned DEFAULT NULL COMMENT '주문번호',
+  `user_name` varchar(100) DEFAULT NULL COMMENT '고객명',
+  `order_product` varchar(100) DEFAULT NULL COMMENT '주문상품',
+  `order_cnt` bigint(20) DEFAULT NULL COMMENT '주문수량',
+  `order_status` varchar(100) DEFAULT NULL COMMENT '주문상태',
+  `reg_id` varchar(100) DEFAULT NULL COMMENT '등록자',
+  `reg_dt` datetime DEFAULT current_timestamp() COMMENT '등록일시',
+  PRIMARY KEY (`board_code`,`board_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='대시보드 테이블'
 
-
-INSERT INTO test.nss_board
-(user_name, order_product, order_cnt, order_status, reg_dt)
-VALUES('김철수', '책', 1, '입금완료','2020-04-27 10:16:52');
-
-INSERT INTO test.nss_board
-(user_name, order_product, order_cnt, order_status, reg_dt)
-VALUES('김희애', '책', 1, '입금완료','2020-04-27 11:16:52');
-
-INSERT INTO test.nss_board
-(user_name, order_product, order_cnt, order_status, reg_dt)
-VALUES('노진구', '아령', 4, '배송중','2020-04-27 11:40:52');
-
-INSERT INTO test.nss_board
-(user_name, order_product, order_cnt, order_status, reg_dt)
-VALUES('박퉁퉁', '샐러드', 3, '상품준비중','2020-04-27 12:16:52');
-
-INSERT INTO test.nss_board
-(user_name, order_product, order_cnt, order_status, reg_dt)
-VALUES('강호동', '컴퓨터', 1, '배송완료','2020-04-27 12:30:52');
-
-INSERT INTO test.nss_board
-(user_name, order_product, order_cnt, order_status, reg_dt)
-VALUES('이상민', '금괴', 11, '배송준비중','2020-04-27 13:00:52');
-
-INSERT INTO test.nss_board
-(user_name, order_product, order_cnt, order_status, reg_dt)
-VALUES('민경훈', '줄넘기', 6, '배송중','2020-04-27 13:16:52');
-
+CREATE TABLE `nss_file` (
+  `board_code` char(2) NOT NULL COMMENT '게시판구분코드',
+  `board_seq` bigint(20) unsigned NOT NULL COMMENT '원본 게시물 일련번호',
+  `file_seq` bigint(20) unsigned NOT NULL COMMENT '첨부파일일련번호',
+  `file_path` varchar(100) DEFAULT NULL COMMENT '첨부파일 경로',
+  `org_file_nm` varchar(100) DEFAULT NULL COMMENT '원본파일명',
+  `file_nm` varchar(100) DEFAULT NULL COMMENT '물리파일명',
+  `file_ext` varchar(100) DEFAULT NULL COMMENT '첨부파일확장자',
+  `reg_id` varchar(100) DEFAULT NULL COMMENT '등록자',
+  `reg_dt` datetime DEFAULT NULL COMMENT '등록일시',
+  PRIMARY KEY (`board_code`,`board_seq`,`file_seq`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='첨부파일테이블'

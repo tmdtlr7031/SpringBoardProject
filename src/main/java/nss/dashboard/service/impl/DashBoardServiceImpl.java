@@ -68,6 +68,9 @@ public class DashBoardServiceImpl extends EgovAbstractServiceImpl implements Das
 		try {
 			fileList = fileUtil.parseFileInf(files, "", 0, "", "Globals.filePath", "holiday/");
 			
+			// boardCode별 boardSeq Max 구하기
+			int boardSeq = dashBoardMapper.selectGetBoardSeq("01");
+			
 			for (int j = 0; j < fileList.size(); j++) {
 				FileVO fvo = fileList.get(j);
 				String saveName = fvo.getStreFileNm();
@@ -79,11 +82,10 @@ public class DashBoardServiceImpl extends EgovAbstractServiceImpl implements Das
 				//엑셀파일 워크북 객체 생성(xls)
 				Workbook workbook = Workbook.getWorkbook(file);
 				
-				int n=0;
 				// 시트 지정
 				Sheet sheet = workbook.getSheet(0);
-				// Column : 가로, Row : 세로, 0부터 시작
-				int endIdx = sheet.getColumn(1).length-1; // 타이틀 부분
+
+				int endIdx = sheet.getColumn(1).length-1; // 타이틀 부분빼고 데이터 수
 				
 				// 실제 값이 있는 부분
 				for(int i=1;i<=endIdx;i++){
@@ -92,13 +94,17 @@ public class DashBoardServiceImpl extends EgovAbstractServiceImpl implements Das
 					String prouduct = StringUtil.isNullToString(sheet.getCell(1,i).getContents()); // 상품
 					String counts =  StringUtil.isNullToString(sheet.getCell(2,i).getContents()); // 수량
 					String status =  StringUtil.isNullToString(sheet.getCell(3,i).getContents()); // 상태
+					String ordernumber =  StringUtil.isNullToString(sheet.getCell(4,i).getContents()); // 주문번호
 
 					// 엑셀에 값이 다 있는 경우에만 등록
-					if(!"".equals(name) && !"".equals(prouduct) && !"".equals(counts) && !"".equals(status)){
+					if(!"".equals(name) && !"".equals(prouduct) && !"".equals(counts) && !"".equals(status) && !"".equals(ordernumber)){
+						vo.setBoardCode("01");
+						vo.setBoardSeq(boardSeq+i);
 						vo.setUserName(name);
 						vo.setOrderProduct(prouduct);
 						vo.setOrderCnt(Integer.parseInt(counts));
 						vo.setOrderStatus(status);
+						vo.setOrderCode(Integer.parseInt(ordernumber));
 						paramVO.getParamList().add(vo);
 					}else {
 						returnMap.put("status", "FAIL");

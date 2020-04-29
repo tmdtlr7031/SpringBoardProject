@@ -36,7 +36,7 @@
 						<th>양식 다운로드</th>
 						<td class="tl">
 							<span class="filewrp">
-								<label onclick="downloadExcel();" style="background-color: #8C8C8C; color: white; cursor: pointer; padding: 5px 12px 5px 12px;">양식</label>
+								<label onclick="downloadExcelForm();" style="background-color: #8C8C8C; color: white; cursor: pointer; padding: 5px 12px 5px 12px;">양식</label>
 							</span>
 						</td>
 					</tr>
