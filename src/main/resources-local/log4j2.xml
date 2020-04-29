@@ -15,7 +15,7 @@
         
     </Appenders>
     <Loggers>
-        <Logger name="java.sql" level="INFO" additivity="false">
+        <Logger name="java.sql" level="DEBUG" additivity="false">
             <AppenderRef ref="console" />
 <!--             <AppenderRef ref="egovLogger" /> -->
         </Logger>
@@ -32,7 +32,7 @@
             <AppenderRef ref="console" />
 <!--             <AppenderRef ref="egovLogger" /> -->
         </Logger>
-        <Root level="INFO">
+        <Root level="DEBUG">
             <AppenderRef ref="console" />
 <!--             <AppenderRef ref="egovLogger" /> -->
         </Root>

@@ -86,23 +86,99 @@
 		document.listFrm.submit();
 	}
 	
-	/* 엑셀 업로드 */ 
+	/* 엑셀 업로드 (Start) */ 
 	var excelExtList = [ 'xls']; // 업로드할 엑셀 확장자
 	
-// 	function fileChange(fileInputNameNum, validList) {
-// 		var routeId = 'file_' + fileInputNameNum + '_route';
-// 		var filePath = $('input[name=file_' + fileInputNameNum + ']').val();
-// 		var fileInfo = getFileInfo(filePath);
-// 		if (!validExt(fileInfo.ext, eval(validList), fileInputNameNum)) {
-// 			return;
-// 		}
-// 		$('#' + routeId).val(fileInfo.name);
-// 	}
+	function fileChange(validList) {
+		var filePath = $('input[name="file"]').val(); // filePath = "C:\fakepath\파일명.xls" 형태
+
+		var fileInfo = getFileInfo(filePath);
+		if (!validExt(fileInfo.ext, eval(validList))) {
+			return;
+		}
+		$('#fileName').text(fileInfo.name); // 첨부파일명 넣어주는 곳
+	}
 	
-	/* 엑셀 다운로드 */
-	function fnExcelDownload() {
-		document.listFrm.action = "${pageContext.request.contextPath }/dashboard/selectDashBoardListDownloadExcel.do";
-		document.listFrm.submit();
+	// 파일명, 확장자 분리
+	function getFileInfo(filePath){
+		var fileInfo = new Object();
+		var lastIndex = filePath.lastIndexOf('\\');
+		var name = filePath.substring(lastIndex+1, filePath.length+1);
+		var commaIndex = name.lastIndexOf('.');
+		var ext = name.substring(commaIndex+1, name.length+1);
+
+		fileInfo.name = name;
+		fileInfo.ext = ext.toLowerCase();
+
+		return fileInfo;
+	}
+	
+	function fileUpload(){
+		// file은 serialize() 안됨.
+		var form = $('#detailFrm');
+		var formData = new FormData(form.get(0)); 
+		
+		$.ajax({
+			type : "POST" ,
+			enctype: 'multipart/form-data',
+			url : '<c:url value="/dashboard/insertDashBoardExeclFile.do"/>',
+			cache : false ,
+			processData: false, // multipart 시 필수
+            contentType: false, // multipart 시 필수
+	 		data : formData ,
+			success : function(data) { // 팝업 jsp가 data로 들어옴
+				 if( data.status == "OK"){
+					 // 리스트 새로고침
+					 alert(data.msg);
+					 document.listFrm.pageIndex.value = 1;
+				 	 document.listFrm.action = '<c:url value="/dashboard/selectDashBoardList.do"/>';
+					 document.listFrm.submit();
+				 }else if( data.status == "EMPTY") {
+					 alert(data.msg);
+				 }else{
+					 alert(data.msg);
+				 }
+			},
+			error: function (xhr, status, error) {
+				alert("오류가 발생하였습니다.");
+				return false;
+	        }
+		});
+		
+		// ajaxSubmit 이용할수도있음
+// 		$('#detailFrm').ajaxSubmit({ // listFrm
+// 			 url : "<c:url value='.do'/>",
+//             type : 'post',
+//             dataType : 'json',
+//             success : function(data){
+//            	 if(data.status = 'success'){
+// 					alert(data.msg);
+// 					document.listFrm.pageIndex.value = 1;
+// 					document.listFrm.action = "<c:url value='.do'/>";
+// 			        document.listFrm.submit();
+//            	 }else{
+// 					alert(data.msg);
+//            	 }
+//             },
+//             error: function (xhr, status, error) {
+// 				alert("오류가 발생하였습니다.");
+// 				return false;
+// 	        }
+// 		});
+	}
+	/* 엑셀 업로드 (End) */
+	
+	// 확장자 유효성 검사
+	function validExt(ext, extList) {
+		var returnValue = false;
+		if ($.inArray(ext, extList) == -1 && ext != '') {
+			$('input[name="file"]').val('');
+			$('#fileName').text('');
+			alert('첨부파일 확장자를 확인해주세요.');
+			return returnValue;
+		}
+		returnValue = true;
+		return returnValue;
 	}
 	
 	/* 레이어 팝업 호출 */
@@ -124,6 +200,11 @@
 		});
     }
 	
+	/* 엑셀 다운로드 */
+	function fnExcelDownload() {
+		document.listFrm.action = "${pageContext.request.contextPath }/dashboard/selectDashBoardListDownloadExcel.do";
+		document.listFrm.submit();
+	}
 	
 	//윈도우 팝업
 // 	function goDetailPop(searchDate, type) {
@@ -168,7 +249,7 @@
 		</div>
 		
 		<div style="float: right;">
-			<label style="background-color: #8C8C8C; color: white; cursor: pointer;" onclick="goPop();">엑셀 업로드</label> 
+			<label style="background-color: #8C8C8C; color: white; cursor: pointer; padding: 5px 12px 5px 12px;" onclick="goPop();">엑셀 업로드</label> 
 			<button onclick="fnExcelDownload();">엑셀다운로드</button>
 			<select><option>페이지수</option></select>
 		</div>

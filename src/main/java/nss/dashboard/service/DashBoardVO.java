@@ -1,5 +1,8 @@
 package nss.dashboard.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nss.com.service.DefaultVO;
 
 public class DashBoardVO extends DefaultVO {
@@ -15,6 +18,15 @@ public class DashBoardVO extends DefaultVO {
 	private String regDt;
 	private String excelYn = "N";
 	
+	private List<DashBoardVO> paramList = new ArrayList<DashBoardVO>();
+	
+	
+	public List<DashBoardVO> getParamList() {
+		return paramList;
+	}
+	public void setParamList(List<DashBoardVO> paramList) {
+		this.paramList = paramList;
+	}
 	public String getExcelYn() {
 		return excelYn;
 	}

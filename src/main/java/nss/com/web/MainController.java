@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import egovframework.com.cmm.EgovMessageSource;
@@ -61,11 +62,13 @@ public class MainController {
     
     @RequestMapping("/menuTopBar.do")
     public String menuTopBar(ModelMap model, HttpServletRequest request) {
+    	
+    	/* 로그인 타이머를 위해 */
         LoginVO loginVO = new LoginVO();
         loginVO = (LoginVO) EgovUserDetailsHelper.getAuthenticatedUser();
-        
 //        loginVO = loginService.selectLastLoginTime(loginVO.getUsrId());
-//        model.addAttribute("LoginVO",loginVO);
+        
+        model.addAttribute("LoginVO",loginVO);
         
         return "include/menuTopBar";
     }
@@ -91,6 +94,7 @@ public class MainController {
 		return "egovframework/error/innerAccessDeny";
 	}
 
+    @ResponseBody
     @RequestMapping(value = "/keepSession.do")
 	public void sessionContinue(HttpServletRequest request){
         request.getSession(true);

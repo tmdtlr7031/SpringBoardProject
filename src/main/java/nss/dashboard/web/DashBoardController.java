@@ -2,7 +2,9 @@ package nss.dashboard.web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -12,9 +14,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.google.gson.Gson;
 
 import egovframework.com.cmm.LoginVO;
+import egovframework.com.cmm.service.EgovFileMngUtil;
 import egovframework.com.cmm.service.EgovProperties;
+import egovframework.com.cmm.service.FileVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
 import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import nss.common.util.XlsxUtil;
@@ -116,5 +125,24 @@ public class DashBoardController {
 	@RequestMapping(value="/dashboard/selectExcelLayerPop.do")
 	public String selectExcelLayerPop() {
 		return "/dashboard/selectExcelLayerPop";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/dashboard/insertDashBoardExeclFile.do", produces="application/json; charset=utf-8;")
+	public String insertDashBoardExeclFile(final MultipartHttpServletRequest multiReq) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		final Map<String,MultipartFile> files = multiReq.getFileMap();
+		
+		// 파일 정보가 있는 경우
+		if(!files.isEmpty()) {
+			// db 트렌젝션 + 오류 시 파일삭제를 위해 Service로 감싸기
+			resultMap = dashboardService.insertDashBoardExcelUpload(files);
+		}else {
+			resultMap.put("status", "EMPTY");
+			resultMap.put("msg", "업로드 하려는 파일이 비었습니다. 확인해주세요.");
+		}
+		
+		return new Gson().toJson(resultMap);
 	}
 }

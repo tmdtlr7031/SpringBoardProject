@@ -25,14 +25,20 @@
 						<th>엑셀파일</th>
 						<td class="tl">
 							<div class="filewrp">
-								<label>업로드<input type="file" onchange="javascript:fileChange('0','excelExtList');" id="egovComfileUploader" name="file_0"></label> 
-								<input type="text" style="border: 0" title="file_0_route" name="file_0_route" id="file_0_route" />
+								<label style="background-color: #8C8C8C; color: white; cursor: pointer; padding: 5px 12px 5px 12px;">업로드
+									<input type="file" onchange="javascript:fileChange('excelExtList');" id="egovComfileUploader" name="file" style="position: absolute; overflow: hidden ;width: 0; height: 0;">
+								</label> 
+								<span id="fileName"></span>
 							</div>
 						</td>
 					</tr>
 					<tr>
 						<th>양식 다운로드</th>
-						<td class="tl"><span class="filewrp"><label onclick="downloadExcel();">양식</label></span></td>
+						<td class="tl">
+							<span class="filewrp">
+								<label onclick="downloadExcel();" style="background-color: #8C8C8C; color: white; cursor: pointer; padding: 5px 12px 5px 12px;">양식</label>
+							</span>
+						</td>
 					</tr>
 				</tbody>
 			</table>
