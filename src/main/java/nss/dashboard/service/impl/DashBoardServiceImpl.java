@@ -120,14 +120,6 @@ public class DashBoardServiceImpl extends EgovAbstractServiceImpl implements Das
 		} catch (Exception e) {
 			// 에러 시 db는 롤백이 될꺼고 + 실제 파일 삭제 확인
 			e.printStackTrace();
-			
-			for (int i = 0; i < fileList.size(); i++) {
-				File file = new File(fileList.get(i).getFileStreCours()+fileList.get(i).getStreFileNm()); // 첨부파일 경로 + 물리파일명
-			
-		        if(file.exists()) {
-		            file.delete();
-		        }
-			}
 			returnMap.put("status", "FAIL");
 			returnMap.put("msg", "예기치 못한 오류가 발생하여 등록에 실패했습니다.");
 		} finally {
