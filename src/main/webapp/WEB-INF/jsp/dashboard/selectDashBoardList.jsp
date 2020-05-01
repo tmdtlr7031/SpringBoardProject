@@ -300,7 +300,7 @@
 					<c:choose>
 						<c:when test="${not empty resultList }">
 							<c:forEach var="result" items="${resultList}" varStatus="varStatus">
-								<tr style="cursor: pointer;" onclick="javascript:goView('${result.orderCode}')">
+								<tr style="cursor: pointer;">
 									<!-- No -->
 									<td><c:out value="${paginationInfo.totalRecordCount - (comonVO.pageUnit * (paginationInfo.currentPageNo-1 )) - (varStatus.count-1) }"/></td>
 									<td><c:out value="${result.orderCode}"/></td>

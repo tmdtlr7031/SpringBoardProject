@@ -66,10 +66,7 @@ public class DashBoardServiceImpl extends EgovAbstractServiceImpl implements Das
 		// 등록하다가 에러나면 롤백할 생각말고 검증 후에 넣는게 더 낫다는 의견 수렴
 		// 대량 등록같은 경우 한번에 Insert하는게 바람직. DB 접근할때마다 트랜젝션을 생성하고 커밋하는데 이 횟수를 한번으로 줄일 수 있기 때문. (oracle의 insert all 등을 이용) 
 		try {
-			fileList = fileUtil.parseFileInf(files, "", 0, "", "Globals.filePath", "holiday/");
-			
-			// boardCode별 boardSeq Max 구하기
-			int boardSeq = dashBoardMapper.selectGetBoardSeq("01");
+			fileList = fileUtil.parseFileInf(files, "", 0, "", "Globals.filePath", "");
 			
 			for (int j = 0; j < fileList.size(); j++) {
 				FileVO fvo = fileList.get(j);
@@ -98,8 +95,6 @@ public class DashBoardServiceImpl extends EgovAbstractServiceImpl implements Das
 
 					// 엑셀에 값이 다 있는 경우에만 등록
 					if(!"".equals(name) && !"".equals(prouduct) && !"".equals(counts) && !"".equals(status) && !"".equals(ordernumber)){
-						vo.setBoardCode("01");
-						vo.setBoardSeq(boardSeq+i);
 						vo.setUserName(name);
 						vo.setOrderProduct(prouduct);
 						vo.setOrderCnt(Integer.parseInt(counts));

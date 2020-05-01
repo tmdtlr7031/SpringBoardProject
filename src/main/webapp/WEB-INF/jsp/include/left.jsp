@@ -38,7 +38,8 @@
 <div class="gnbwrp">
     <nav id="gnb">
         <ul class="gnbtab">
-        	<li>하위메뉴</li>
+        	<li><a href="/dashboard/selectDashBoardList.do">엑셀 업로드, 다운로드 게시</a></li>
+        	<li><a href="/fileboard/selectFileBoardList.do">파일첨부,대댓글</a></li>
         </ul>
     </nav> 
 </div>

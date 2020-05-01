@@ -1,20 +1,19 @@
 CREATE TABLE `nss_board` (
-  `board_code` char(2) NOT NULL COMMENT '게시판구분코드',
-  `board_seq` bigint(20) unsigned NOT NULL COMMENT '게시글 일련번호',
-  `order_code` bigint(20) unsigned DEFAULT NULL COMMENT '주문번호',
+  `board_seq` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '게시글 일련번호',
+  `order_code` int(10) unsigned DEFAULT NULL COMMENT '주문번호',
   `user_name` varchar(100) DEFAULT NULL COMMENT '고객명',
   `order_product` varchar(100) DEFAULT NULL COMMENT '주문상품',
-  `order_cnt` bigint(20) DEFAULT NULL COMMENT '주문수량',
+  `order_cnt` int(10) unsigned DEFAULT NULL COMMENT '주문수량',
   `order_status` varchar(100) DEFAULT NULL COMMENT '주문상태',
   `reg_id` varchar(100) DEFAULT NULL COMMENT '등록자',
   `reg_dt` datetime DEFAULT current_timestamp() COMMENT '등록일시',
-  PRIMARY KEY (`board_code`,`board_seq`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='대시보드 테이블'
+  PRIMARY KEY (`board_seq`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='대시보드 테이블'
 
 CREATE TABLE `nss_file` (
   `board_code` char(2) NOT NULL COMMENT '게시판구분코드',
-  `board_seq` bigint(20) unsigned NOT NULL COMMENT '원본 게시물 일련번호',
-  `file_seq` bigint(20) unsigned NOT NULL COMMENT '첨부파일일련번호',
+  `board_seq` int(10) unsigned NOT NULL COMMENT '원본 게시물 일련번호',
+  `file_seq` int(10) unsigned NOT NULL COMMENT '첨부파일일련번호',
   `file_path` varchar(100) DEFAULT NULL COMMENT '첨부파일 경로',
   `org_file_nm` varchar(100) DEFAULT NULL COMMENT '원본파일명',
   `file_nm` varchar(100) DEFAULT NULL COMMENT '물리파일명',

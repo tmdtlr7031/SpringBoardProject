@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class BoardFileVO implements Serializable {
 	
+	/**
+	 *  첨부파일 VO
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/* 게시판 구분 코드*/
 	private String boardCode;
 	

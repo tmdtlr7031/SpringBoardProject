@@ -10,7 +10,6 @@ public class DashBoardVO extends DefaultVO {
 	private static final long serialVersionUID = 1L;
 	
 	// 정해진게 없으니 일단 String으로 선언
-	private String boardCode;
 	private int boardSeq;
 	private int orderCode;
 	private String userName;
@@ -25,12 +24,6 @@ public class DashBoardVO extends DefaultVO {
 	private List<DashBoardVO> paramList = new ArrayList<DashBoardVO>();
 	
 	
-	public String getBoardCode() {
-		return boardCode;
-	}
-	public void setBoardCode(String boardCode) {
-		this.boardCode = boardCode;
-	}
 	public int getBoardSeq() {
 		return boardSeq;
 	}

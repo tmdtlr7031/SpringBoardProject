@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nss.fileboard.mappers.FileBoardMapper">
+
+	<select id="selectFileBoardList" parameterType="ComBoardVO" resultType="ComBoardVO">
+		SELECT * 
+			FROM nss_comboard 
+			ORDER BY REG_DT DESC
+ 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} 는 아래와 같은 뜻-->
+		    LIMIT #{firstIndex}, #{recordCountPerPage} 
+	</select>
+	
+	<select id="selectFileBoardListCnt" parameterType="ComBoardVO" resultType="Integer">
+		SELECT count(*) 
+			FROM nss_comboard 
+	</select>
+	
+	
+</mapper>

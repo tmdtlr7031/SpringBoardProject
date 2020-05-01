@@ -10,6 +10,8 @@
 		<typeAlias	alias="DefaultVO" type="nss.com.service.DefaultVO"/>
 		<typeAlias	alias="BoardFileVO" type="nss.com.service.BoardFileVO"/>
 		<typeAlias	alias="DashBoardVO" type="nss.dashboard.service.DashBoardVO"/>
+		<typeAlias	alias="ComBoardVO" type="nss.fileboard.service.ComBoardVO"/>
+		<typeAlias	alias="CommentVO" type="nss.fileboard.service.CommentVO"/>
     </typeAliases>
     
 </configuration>
