@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- prod -->
+<!-- RollingFile 수정필요, 로거 셋팅도 필요시 수정 -->
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%c] %m%n" />
+        </Console>
+        <RollingFile name="egovLogger" fileName="/위치/admin.log" filePattern="/위치/admin_%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="%d %5p [%c] %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy/>
+			</Policies>
+		</RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="java.sql" level="DEBUG" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="egovLogger" />
+        </Logger>
+        <Logger name="egovframework" level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="egovLogger" />
+        </Logger>
+		  <!-- log SQL with timing information, post execution -->
+	    <Logger name="jdbc.sqltiming" level="INFO" additivity="false">
+	        <AppenderRef ref="console" />
+	        <AppenderRef ref="egovLogger" />
+	    </Logger>
+	    <Logger name="org.springframework" level="WARN" additivity="false">
+	        <AppenderRef ref="console" />
+	    </Logger>
+	    <Logger name="org.springframework" level="DEBUG" additivity="false">
+	        <AppenderRef ref="egovLogger" />
+	    </Logger>
+        <Root level="DEBUG">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="egovLogger" />
+        </Root>
+    </Loggers>
+</Configuration>

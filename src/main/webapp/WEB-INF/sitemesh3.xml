@@ -1,0 +1,31 @@
+<sitemesh>
+    <!-- Map default decorator. This shall be applied to all paths if no other paths match. -->
+    <!--<mapping decorator="/WEB-INF/deco/DefaultDeco.jsp"/>-->
+
+    <mime-type>text/html</mime-type>
+    <mime-type>application/vnd.wap.xhtml+xml</mime-type>
+    <mime-type>application/xhtml+xml</mime-type>
+    <mime-type>application/xml</mime-type>
+
+    <!-- Map decorators to path patterns. -->
+    <mapping path="/*" decorator="/WEB-INF/decorator/ManagerDecorator.jsp"/>
+
+    <!--제외-->
+    <mapping path="/index.do" exclue="true"/>
+    <mapping path="/error/*.do" exclue="true"/>
+    <mapping path="/**/*Pop.do" exclue="true"/>
+    <mapping path="*.json*" exclue="true"/>
+    <mapping path="/uat/uia/egovLoginUsr.do" exclue="true"/>
+    <mapping path="/actionLogin.do" exclue="true"/>
+    <mapping path="/actionLogout.do" exclue="true"/>
+    <mapping path="/accessDeny.do" exclue="true"/>
+    <mapping path="/keepSession.do" exclue="true"/>
+<!--     <mapping path="/cmm/fms/*" exclue="true"/> -->
+    <mapping path="/**/insert*.do" exclue="true"/>
+    <mapping path="/**/update*.do" exclue="true"/>
+    <mapping path="/**/delete*.do" exclue="true"/>
+    <mapping path="/**/*Excel*.do" exclue="true"/>
+    <mapping path="/*/*Ajax.do" exclude="true"/>
+<!--     <mapping path="**/*.jsp" exclue="true"/> --> <!-- 왜.jsp도 하는지 모르겠..으니 주석처리함 -->
+<!--     <mapping path="/pdf/**/*.do" exclue="true"/> -->
+</sitemesh>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+	<!-- ======================= Scheduler ========================	-->
+	
+<!-- 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean"> -->
+<!-- 		<property name="triggers"> -->
+<!-- 			<list> -->
+<!--  				Scheduling할 Trigger 목록 -->
+<!-- 				<ref bean="tenSecTrigger"/>  -->
+<!-- 				<ref bean="oneMinTrigger"/>  -->
+<!-- 				<ref bean="fileValidTrigger"/> -->
+<!-- 				<ref bean="inputNoticeTalkTrigger"/> -->
+<!-- 				<ref bean="sendNoticeTalkTrigger"/> -->
+<!-- 				<ref bean="tmotNoticeTalkTrigger"/> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+
+	<!-- ======================== Trigger =========================	-->
+	<!-- 															-->
+	<!-- jobDetail : Trigger할 JOB의 Id과 매핑							-->
+	<!-- 															-->
+	<!-- cronExpression (Quartz Cron 표현식)							-->
+	<!-- 	[초] [분] [시] [일] [월] [요일] [연도]						-->
+	<!-- 	예) * 0,30 * * * ? *		= 매시 정각 및 30분에 Job을 수행			-->
+	<!-- 															-->
+	<!--	※ 주요 기호													-->
+	<!--		* : 모든 수를 의미										-->
+	<!--		? : 설정값 없음	※ [일]필드와 [요일]필드 중 지정					-->
+	<!--		숫자-숫자 : 일련의 범위를 지정								-->
+	<!--		시간,시간,… : 특정 시간을 지정								-->
+	<!--		시작시간/증가시간 : 시작시간(*를 입력 시 0)으로 부터 증가시간이 증가됨	-->
+	<!--			예) [분]필드에 3/20 을 지정 시 3분부터 시작하여 매 20분 마다 수행	-->
+	<!--		요일 : SUN,MON,TUE,WED,THU,FRI,SAT 혹은 순서대로 1~7		-->
+	<!--		L : [일]필드에 L을 지정 시 그 달의 마지막 일,					-->
+	<!-- 			[요일]필드에 요일L 형식으로 지정 시 매월 마지막 해당 요일			-->
+	<!--		요일#몇번째 : 매월 몇번째 요일								-->
+	<!--		일W : 주어진 날[일]로 부터 가장 가까운 평일(월~금)				-->
+	<!-- 															-->
+	<!-- ==========================================================	-->
+	
+	<!-- 평일에 10초마다 -->
+<!-- 	<bean id="tenSecTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="PrintTestJob"/> -->
+<!-- 		<property name="cronExpression" value="0/10 * * ? * MON-FRI *"></property> -->
+<!-- 	</bean> -->
+	
+	<!-- 매분마다 -->
+<!-- 	<bean id="oneMinTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="SelectTestJob"/> -->
+<!-- 		<property name="cronExpression" value="0 0/1 * * * ? *"></property> -->
+<!-- 	</bean> -->
+	
+	<!-- 파일유효성 트리거 (기존) -->
+<!-- 	<bean id="fileValidTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="FileValidJob"/> -->
+<!-- 		<property name="cronExpression" value="0 38 14 ? * * *"></property> -->
+<!-- 	</bean> -->
+	
+	<!-- 파일유효성 트리거 (신규 : DocCn) -->
+<!-- 	<bean id="fileValidTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="OrgDocCnValidJob"/> -->
+<!-- 		<property name="cronExpression" value="0 24 15 ? * * *"></property> -->
+<!-- 	</bean> -->
+	
+	<!-- 알림톡 입수 트리거 -->
+<!-- 	<bean id="inputNoticeTalkTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="insertNoticeTalkJob"/> -->
+<!-- 		<property name="cronExpression" value="0/10 * * ? * MON-FRI *"></property> -->
+<!-- 	</bean> -->
+	
+	<!-- 알림톡 발송 트리거 -->
+<!-- 	<bean id="sendNoticeTalkTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="sendNoticeTalkJob"/> -->
+<!-- 		<property name="cronExpression" value="0/10 * * ? * MON-FRI *"></property> -->
+<!-- 	</bean> -->
+	
+	<!-- 알림톡 마감 트리거 -->
+<!-- 	<bean id="tmotNoticeTalkTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean"> -->
+<!-- 		<property name="jobDetail" ref="tmotNoticeTalkJob"/> -->
+<!-- 		<property name="cronExpression" value="0/10 * * ? * MON-FRI *"></property> -->
+<!-- 	</bean> -->
+	
+
+	<!-- ========================== JOB ===========================	-->
+	<!-- 															-->
+	<!-- targetObject : 실행되는 @Service 어노테이션 이름					-->
+	<!-- targetMethod : Service내 주기적으로 실행할 Method 이름				-->
+	<!-- concurrent : 다수의 JOB과 동시 실행 여부 (false: 순차적 / true : 동시)	-->
+	<!-- arguments : targetMethod에 보내지는 파라미터 값 (※ 순서대로 값을 보냄)	-->
+	<!-- 															-->
+	<!-- ==========================================================	-->
+	
+<!-- 	<bean id="SelectTestJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="SelectTestBatch"/> -->
+<!-- 		<property name="targetMethod" value="selectTest"/> -->
+<!-- 		<property name="concurrent" value="false"/> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="PrintTestJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="PrintTestBatch"/> -->
+<!-- 		<property name="targetMethod" value="printTimer"/> -->
+<!-- 		<property name="concurrent" value="false"/> -->
+<!-- 		<property name="arguments"> -->
+<!-- 			<list> -->
+<!-- 				<value>배치 타이머 : </value> -->
+<!-- 				<value>true</value> -->
+<!-- 			</list> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="FileValidJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="FileValidBatch"/> -->
+<!-- 		<property name="targetMethod" value="fileValidChk"/> -->
+<!-- 		<property name="concurrent" value="false"/> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="OrgDocCnValidJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="OrgDocCnMakeBatch"/> -->
+<!-- 		<property name="targetMethod" value="DocCnValidChk"/> -->
+<!-- 		<property name="concurrent" value="false"/> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="insertNoticeTalkJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="NoticeTalkManageBatch"/> -->
+<!-- 		<property name="targetMethod" value="insertNoticeTalk"/> -->
+<!-- 		<property name="concurrent" value="false"/> -->
+<!-- 	</bean> -->
+
+<!-- 	<bean id="sendNoticeTalkJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="NoticeTalkManageBatch"/> -->
+<!-- 		<property name="targetMethod" value="sendNoticeTalk"/> -->
+<!-- 		<property name="concurrent" value="false"/> -->
+<!-- 	</bean> -->
+	
+<!-- 	<bean id="tmotNoticeTalkJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean"> -->
+<!-- 		<property name="targetObject" ref="NoticeTalkManageBatch"/> -->
+<!-- 		<property name="targetMethod" value="tmotNoticeTalk"/> -->
+<!-- 		<property name="concurrent" value="false"/> -->
+<!-- 	</bean> -->
+	
+</beans>

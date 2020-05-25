@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nss.dashboard.mappers.DashBoardMapper">
+
+	<select id="selectTestList" parameterType="DashBoardVO" resultType="DashBoardVO">
+		SELECT * 
+			FROM nss_board 
+			ORDER BY REG_DT DESC
+			<if test='"N".equals(excelYn)'>
+	 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} 는 아래와 같은 뜻-->
+			    LIMIT #{firstIndex}, #{recordCountPerPage} 
+			</if> 
+	</select>
+	
+	<select id="selectTestListCnt" parameterType="DashBoardVO" resultType="Integer">
+		SELECT count(*) 
+			FROM nss_board 
+	</select>
+	
+	<insert id="insertDashBoardAll" parameterType="DashBoardVO">
+		INSERT INTO nss_board
+			( order_code, user_name, order_product, order_cnt, order_status, reg_dt )
+		VALUES
+		<foreach collection ="paramList" item="item" open=" " separator=", " close=" ">
+			<![CDATA[
+				( #{item.orderCode}, #{item.userName}, #{item.orderProduct}, #{item.orderCnt}, #{item.orderStatus}, now() )
+			]]>
+		</foreach>
+	</insert>
+	
+</mapper>

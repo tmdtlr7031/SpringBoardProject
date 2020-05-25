@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/jdbc  http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd">
+	
+	<!-- 테스트 실행용 --> 
+<!-- 	<jdbc:embedded-database id="dataSource" type="HSQL"> -->
+<!-- 		<jdbc:script location= "classpath:/db/sampledb.sql"/> -->
+<!-- 	</jdbc:embedded-database> -->
+     
+     <bean id="egov.propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/egovframework/egovProps/globals.properties</value>
+                <!-- value>file:/product/jeus/egovProps/globals.properties</value-->
+            </list>
+        </property>
+    </bean>
+
+	<!-- DataSource -->
+	<alias name="dataSource" alias="egov.dataSource"/>
+    <alias name="dataSource" alias="dataSource"/>
+	
+	<!-- 통합 dataSource -->
+<!-- 	jdbc 접속정보 암호화 처리 -->
+<!-- 	<bean id="dataSource" class="egovframework.com.cmm.util.EgovDataSourceWrapper" destroy-method="close"> -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${Globals.${Globals.DbType}.DriverClassName}"/>
+		<property name="url" value="${Globals.${Globals.DbType}.Url}" />
+		<property name="username" value="${Globals.${Globals.DbType}.UserName}"/>
+		<property name="password" value="${Globals.${Globals.DbType}.Password}"/>
+	</bean>
+    
+</beans>

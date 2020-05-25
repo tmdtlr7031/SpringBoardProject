@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+                http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+    <context:component-scan base-package="egovframework, nss">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+    </context:component-scan>
+
+    <!-- For Pagination Tag -->
+    <bean class="egovframework.com.cmm.ImagePaginationRenderer" id="imageRenderer"/>
+
+    <bean id="paginationManager" class="egovframework.rte.ptl.mvc.tags.ui.pagination.DefaultPaginationManager">
+        <property name="rendererType">
+            <map>
+                <entry key="image" value-ref="imageRenderer"/>
+            </map>
+        </property>
+    </bean>
+	<!-- /For Pagination Tag -->
+	
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="webBindingInitializer">
+            <bean class="egovframework.com.cmm.web.EgovBindingInitializer"/>
+        </property>
+    </bean>
+    
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+
+	<mvc:interceptors>
+	    <mvc:interceptor>
+		     <mvc:mapping path="/**/*.do" />
+		     <mvc:exclude-mapping path="/**/*Ajax.do" />
+		     <mvc:exclude-mapping path="/css/css.do" />
+		     <mvc:exclude-mapping path="/validator.do" />
+		     <mvc:exclude-mapping path="/uat/uia/egovLoginUsr.do" />
+		     <mvc:exclude-mapping path="/actionLogin.do" />
+		     <mvc:exclude-mapping path="/actionLogout.do" />
+		     <mvc:exclude-mapping path="/left.do" />
+		     <mvc:exclude-mapping path="/menuTopBar.do" />
+		     <mvc:exclude-mapping path="/authDeny.do" />
+		     <mvc:exclude-mapping path="/accessDeny.do" />
+<!-- 		     <mvc:exclude-mapping path="/cmm/fms/**/*.do" /> -->
+		     <bean class="nss.log.wlg.web.EgovWebLogInterceptor" />
+	    </mvc:interceptor>
+	 </mvc:interceptors>
+	 
+<!--     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"> -->
+<!--         <property name="interceptors"> -->
+<!--             <list> -->
+<!--                 <ref bean="localeChangeInterceptor" /> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--     </bean> -->
+    
+<!--     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver" /> -->
+<!--     쿠키를 이용한 Locale 이용시 <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"/> -->
+<!--     <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"> -->
+<!--         <property name="paramName" value="language" /> -->
+<!--     </bean> -->
+
+    <bean class="nss.common.util.CustomSimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="egovframework/com/cmm/error/egovError"/>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.springframework.dao.DataAccessException">egovframework/com/cmm/error/dataAccessFailure</prop>
+                <prop key="org.springframework.transaction.TransactionException">egovframework/com/cmm/error/dataAccessFailure</prop>
+                <prop key="egovframework.rte.fdl.cmmn.exception.EgovBizException">egovframework/com/cmm/error/egovBizException</prop>
+                <prop key="org.springframework.security.AccessDeniedException">egovframework/com/cmm/error/egovHttpSessionException</prop>
+            </props>
+        </property>
+    </bean>
+
+	<!-- for JFile -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" p:order="0"/>
+
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1" p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/" p:suffix=".jsp"/>
+
+</beans>

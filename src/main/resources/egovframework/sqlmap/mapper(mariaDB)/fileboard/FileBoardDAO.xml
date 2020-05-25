@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?><!--Converted at: Wed Feb 01 15:11:03 KST 2017-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nss.fileboard.mappers.FileBoardMapper">
+	
+	<resultMap type="ComBoardVO" id="comBoardDetailMap">
+		<id property="comBoardCode" column="COM_BOARD_CODE" />
+		<id property="comBoardSeq" column="COM_BOARD_SEQ" />
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="regId" column="REG_ID"/>
+		<collection property="addFileList" ofType="BoardFileVO"> <!-- 첨부파일 조회용 -->
+			<id property="boardCode" column="BOARD_CODE" />
+			<id property="boardSeq" column="BOARD_SEQ" />
+			<id property="fileSeq" column="FILE_SEQ" />
+			<result property="filePath" column="FILE_PATH"/>
+			<result property="orgFileNm" column="ORG_FILE_NM"/>
+			<result property="fileNm" column="FILE_NM"/>
+			<result property="fileExt" column="FILE_EXT"/>
+		</collection>
+	</resultMap>
+	
+	<resultMap type="ComBoardVO" id="comBoardViewReply">
+		<id property="comBoardCode" column="COM_BOARD_CODE" />
+		<id property="comBoardSeq" column="COM_BOARD_SEQ" />
+		<result property="boardTitle" column="BOARD_TITLE"/>
+		<result property="boardContent" column="BOARD_CONTENT"/>
+		<result property="regId" column="REG_ID"/>
+		<collection property="addFileList" ofType="BoardFileVO"> <!-- 첨부파일 조회용 -->
+			<id property="boardCode" column="BOARD_CODE" />
+			<id property="boardSeq" column="BOARD_SEQ" />
+			<id property="fileSeq" column="FILE_SEQ" />
+			<result property="filePath" column="FILE_PATH"/>
+			<result property="orgFileNm" column="ORG_FILE_NM"/>
+			<result property="fileNm" column="FILE_NM"/>
+			<result property="fileExt" column="FILE_EXT"/>
+		</collection>
+		<collection property="replyList" ofType="CommentVO"> <!-- 댓글 조회용 -->
+			<id property="replySeq" column="REPLY_SEQ" />
+			<id property="replyGroup" column="REPLY_GROUP" />
+			<id property="replyGroupOdr" column="REPLY_GROUP_ODR" />
+			<id property="replyDepth" column="REPLY_DEPTH" />
+			<result property="replyContent" column="REPLY_CONTENT"/>
+			<result property="regUser" column="REG_USER"/>
+			<result property="regDateTime" column="REG_DATE_TIME"/>
+			<result property="modUser" column="MOD_USER"/>
+			<result property="modDateTime" column="MOD_DATE_TIME"/>
+		</collection>
+	</resultMap>
+	
+
+	<select id="selectFileBoardList" parameterType="ComBoardVO" resultType="ComBoardVO">
+		SELECT * 
+			FROM nss_comboard 
+			ORDER BY REG_DT DESC
+ 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} 는 아래와 같은 뜻-->
+		    LIMIT #{firstIndex}, #{recordCountPerPage} 
+	</select>
+	
+	<select id="selectFileBoardListCnt" parameterType="ComBoardVO" resultType="Integer">
+		SELECT count(*) 
+			FROM nss_comboard 
+	</select>
+	
+	<insert id="insertComBoardOne" parameterType="ComBoardVO">
+		<selectKey keyProperty="comBoardSeq" resultType="int" order="AFTER">
+			SELECT MAX(com_board_seq) FROM nss_comboard WHERE com_board_code = #{comBoardCode}
+		</selectKey>
+		INSERT INTO nss_comboard
+			(   com_board_code
+			  , com_board_seq
+			  , board_title
+			  , board_content
+			  , reg_id
+			  , reg_dt
+			)
+		
+		VALUES
+			(   #{comBoardCode}
+				, (SELECT IFNULL(MAX(Q1.com_board_seq)+1,1) FROM nss_comboard Q1 WHERE com_board_code = #{comBoardCode})
+				, #{boardTitle}
+				, #{boardContent}
+				, #{regId}
+				, now()
+			)
+	</insert>
+	
+	<insert id="insertComBoardFile" parameterType="BoardFileVO">
+		<selectKey keyProperty="fileSeq" resultType="int" order="BEFORE">
+			SELECT IFNULL(MAX(Q1.file_seq)+1,1) FROM nss_file Q1 WHERE board_code = #{boardCode} AND board_seq = #{boardSeq}
+		</selectKey>
+		INSERT INTO nss_file
+				(	board_code
+				  , board_seq
+				  , file_seq
+				  , file_path
+				  , org_file_nm
+				  , file_nm
+				  , file_ext
+				  , reg_id
+				  , reg_dt
+				)
+			
+		VALUES
+				(	#{boardCode}
+				  , #{boardSeq}
+				  , #{fileSeq}
+				  , #{filePath}
+				  , #{orgFileNm}
+				  , #{fileNm}
+				  , #{fileExt}
+				  , #{regId}
+				  , now()
+				)
+	</insert>
+	
+	<!-- 파일테이블에 데이터없는 경우(파일첨부없이 등록한경우)도 나오게 하기 위해 -->
+	<select id="selectComBoardView" parameterType="ComBoardVO" resultMap="comBoardDetailMap">
+		SELECT 
+			  Q.com_board_code
+			, Q.com_board_seq
+			, Q.board_title
+			, Q.board_content
+			, Q.reg_id
+			, W.board_code
+			, W.board_seq
+			, W.file_seq
+			, W.file_path
+			, W.org_file_nm
+			, W.file_nm
+			, W.file_ext
+				
+		FROM nss_comboard Q
+		
+		LEFT OUTER JOIN nss_file W
+		ON Q.com_board_code = W.board_code AND Q.com_board_seq = W.board_seq
+		
+		WHERE Q.com_board_code = #{comBoardCode} and Q.com_board_seq = #{comBoardSeq}
+		
+		ORDER BY W.file_seq ASC
+	</select>
+	
+	<select id="selectFileBoardDownloadOne" parameterType="BoardFileVO" resultType="BoardFileVO">
+		SELECT * FROM nss_file WHERE board_code = #{boardCode} AND board_seq = #{boardSeq} AND file_seq = #{fileSeq}
+	</select>
+	
+	<update id="updateComBoardOne" parameterType="ComBoardVO">
+		UPDATE nss_comboard
+		SET
+			 board_title = #{boardTitle}
+			,board_content = #{boardContent}
+			,mod_id = '하드코딩'
+			,mod_dt = now()
+		WHERE com_board_code = #{comBoardCode} AND com_board_seq = #{comBoardSeq} 
+	</update>
+	
+	<delete id="deleteComBoardOne" parameterType="BoardFileVO">
+		DELETE FROM nss_file
+		WHERE board_code = #{boardCode} AND board_seq = #{boardSeq} AND file_seq = #{fileSeq}
+	</delete>
+	
+	<insert id="insertReplyAjax" parameterType="CommentVO">
+		INSERT INTO nss_comment
+			(	reply_group
+			  , org_board_seq
+			  , reply_group_odr
+			  , reply_depth
+			  , reply_content
+			  , reg_user
+			  , reg_date_time
+			)
+		VALUES
+			(
+				#{replyGroup}
+			  , #{orgBoardSeq}
+			  <choose>
+			  	<!-- 그냥 댓글다는경우 -->
+			  	<when test='replyGroupOdr != null and "0".equals(replyGroupOdr)'>
+			  		, (SELECT IFNULL(MAX(Q1.reply_group_odr)+1, 1) FROM nss_comment Q1 WHERE Q1.reply_group = #{replyGroup} AND Q1.org_board_seq = #{orgBoardSeq})
+			  	</when>
+			  	<otherwise>
+			  		, #{replyGroupOdr}
+			  	</otherwise>
+			  </choose>
+			  , #{replyDepth}
+			  , #{replyContent}
+			  , #{regUser}
+			  , now()
+			)
+	</insert>
+	
+	<select id="selectComBoardViewAddReply" parameterType="ComBoardVO" resultMap="comBoardViewReply">
+		SELECT 
+			  Q.com_board_code
+			, Q.com_board_seq
+			, Q.board_title
+			, Q.board_content
+			, Q.reg_id
+			, W.board_code
+			, W.board_seq
+			, W.file_seq
+			, W.file_path
+			, W.org_file_nm
+			, W.file_nm
+			, W.file_ext
+			, Z.reply_seq
+			, Z.reply_group
+			, Z.org_board_seq
+			, Z.reply_group_odr
+			, Z.reply_depth
+			, Z.reply_content
+			, Z.reg_user
+			, Z.reg_date_time
+			, Z.mod_user
+			, Z.mod_date_time
+				
+		FROM nss_comboard Q
+		
+		LEFT OUTER JOIN nss_file W
+		ON Q.com_board_code = W.board_code
+		AND Q.com_board_seq = W.board_seq
+		
+		LEFT OUTER JOIN nss_comment Z
+		ON Q.com_board_code = Z.reply_group 
+		AND Q.com_board_seq = Z.org_board_seq
+		
+		WHERE Q.com_board_code = #{comBoardCode} and Q.com_board_seq = #{comBoardSeq}
+		
+		ORDER BY Z.reply_group_odr, Z.reply_depth
+	</select>
+	
+	<delete id="deleteReplyAjax" parameterType="CommentVO">
+		DELETE FROM nss_comment
+		WHERE reply_group = #{replyGroup} 
+			AND org_board_seq = #{orgBoardSeq} 
+			AND reply_group_odr = #{replyGroupOdr}
+			<choose>
+				<when test='replyDepth != 1'>
+					AND reply_seq = #{replySeq}
+				</when> 
+				<otherwise>
+					AND reply_depth >= 1
+				</otherwise>
+			</choose> 
+	</delete>
+	
+</mapper>
