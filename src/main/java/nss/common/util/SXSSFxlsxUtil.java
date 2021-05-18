@@ -13,13 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.time.StopWatch;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -70,6 +73,7 @@ public class SXSSFxlsxUtil{
     
     int totalRow = 0;
     int sheetCnt = 0;
+    StopWatch stopWatch = new StopWatch();
     
     public SXSSFxlsxUtil(){
     	this.wb = new SXSSFWorkbook(10000); // 디스크로 flush되기 전까지 메모리에 들고있는 행의 개수(기본 크기는 100 이며, -1 지정시 무제한이다.) 
@@ -80,6 +84,8 @@ public class SXSSFxlsxUtil{
     	headerStyle = wb.createCellStyle();
     	titleStyle =  wb.createCellStyle();
     	contentsStyle = wb.createCellStyle();
+    	
+    	stopWatch.start();
     }
     
     public void init(String sheetName,List data,String[] topRows, String[] keyArray, 
@@ -114,6 +120,8 @@ public class SXSSFxlsxUtil{
     public void make() throws Exception{
     	makeProc();
     	downloadFunc();
+    	stopWatch.stop();
+    	System.out.println("소요시간 : " + stopWatch.getTime()/1000+"초");
     }
     
     public void makeProc() throws Exception{
@@ -285,30 +293,50 @@ public class SXSSFxlsxUtil{
     	    	headerMake();
     		}
 	    	try {
-				contentsRow = newSheet.createRow(totalRow++);
-				for(int i=0; i<keyArray.length; i++){
-					initContentsStyle();
+//				contentsRow = newSheet.createRow(totalRow++);
+				Row row = newSheet.createRow(totalRow++);
+	    		for(int i=0; i<keyArray.length; i++){
 					if("vo".equals(resultTypeFlag)){
 						Field field = ReflectionUtils.findField(entry.getClass(), JdbcUtils.convertUnderscoreNameToPropertyName(keyArray[i]));
 						field.setAccessible(true);
-						contentsCell = contentsRow.createCell(i);
-						contentsCell.setCellValue(StringUtil.evl(field.get(entry),""));
+						Cell cell = row.createCell(i);
+			    		cell.setCellValue(StringUtil.evl(field.get(entry),"")); // initContentsStyle 하는 순간 속도 느려짐.
+//						contentsCell = contentsRow.createCell(i);
+//						contentsCell.setCellValue(StringUtil.evl(field.get(entry),""));
 					}else {
 						HashMap<String,Object> hm = (HashMap<String,Object>)entry;
 						contentsCell = contentsRow.createCell(i);
 						contentsCell.setCellValue(StringUtil.evl(hm.get(keyArray[i]),""));
 					}
 					newSheet.setColumnWidth(i, (21*256));
-					contentsCell.setCellStyle(contentsStyle);
 				}
+				
+//				for(int i=0; i<keyArray.length; i++){
+//					initContentsStyle();
+//					if("vo".equals(resultTypeFlag)){
+//						Field field = ReflectionUtils.findField(entry.getClass(), JdbcUtils.convertUnderscoreNameToPropertyName(keyArray[i]));
+//						field.setAccessible(true);
+//						contentsCell = contentsRow.createCell(i);
+//						contentsCell.setCellValue(StringUtil.evl(field.get(entry),""));
+//					}else {
+//						HashMap<String,Object> hm = (HashMap<String,Object>)entry;
+//						contentsCell = contentsRow.createCell(i);
+//						contentsCell.setCellValue(StringUtil.evl(hm.get(keyArray[i]),""));
+//					}
+//					newSheet.setColumnWidth(i, (21*256));
+//					contentsCell.setCellStyle(contentsStyle);
+//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+    		
     	}
+    	((SXSSFSheet)newSheet).flushRows();
     	
     }
     
     public void downloadFunc() throws Exception{
+    	
     	File f = new File(filePath);
 		FileInputStream is = null;
 		

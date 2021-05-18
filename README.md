@@ -54,6 +54,10 @@ Spring에 기능넣기
 #### 2020-05-25
 	- SXSSF 관련 주석 추가
 	- Binding Util 추가 및 수정
+
+#### 2021-05-18
+	- SXSSF 수정 및 테스트 (10만건 기준 3초)
+	- contentStyle 설정 시 속도 느려짐
  
 ### TODO List
 - 아래 내용들에 맞는 DB 테이블 추가

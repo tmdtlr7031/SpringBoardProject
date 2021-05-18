@@ -48,3 +48,17 @@ CREATE TABLE `nss_file` (
   `reg_dt` datetime DEFAULT NULL COMMENT '등록일시',
   PRIMARY KEY (`board_code`,`board_seq`,`file_seq`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='첨부파일테이블'
+
+-- 더미데이터만들기 procedures
+CREATE DEFINER=`root`@`localhost` PROCEDURE `test`.`dummy`()
+BEGIN
+
+DECLARE i INT DEFAULT 0;
+	DELETE FROM nss_board;
+	WHILE (i <= 500000) DO 
+	
+		INSERT INTO nss_board (order_code,user_name,order_product,order_cnt,order_status,reg_id,reg_dt)
+		VALUES (i,CONCAT('김블랙',i),'컴퓨터',5,'환불',null,now());
+		SET i = i + 1;
+	END WHILE;
+END
