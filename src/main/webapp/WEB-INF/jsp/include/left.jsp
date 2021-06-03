@@ -41,6 +41,7 @@
         	<li><a href="/dashboard/selectDashBoardList.do">엑셀 업로드, 다운로드 게시</a></li>
         	<li><a href="/fileboard/admin/selectFileBoardList.do">파일첨부</a></li>
         	<li><a href="/fileboard/user/selectFileBoardList.do">대댓글</a></li>
+        	<li><a href="/dynamicList/list/selectDynamicBoardList.do">Ajax리스트 조회 테스트</a></li>
         </ul>
     </nav> 
 </div>
