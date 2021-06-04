@@ -42,8 +42,7 @@ public class DynamicListController {
 //		
 //		/* 조회 */
 //		List<DashBoardVO> resultList = dashboardService.selectTestList(dashBoardVO);
-//		paginationInfo.setTotalRecordCount(dashboardService.selectTestListCnt(dashBoardVO));
-//		
+		paginationInfo.setTotalRecordCount(dashboardService.selectTestListCnt(dashBoardVO));
 		model.addAttribute("paginationInfo",paginationInfo);
 //		model.addAttribute("resultList",resultList);
 		

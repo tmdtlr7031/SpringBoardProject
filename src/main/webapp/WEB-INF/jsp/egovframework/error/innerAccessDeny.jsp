@@ -18,7 +18,7 @@
     	<div>
 			<p class="big">죄송합니다.</p>
 			<span class="bar"></span>
-			<img src="<c:url value='/mobipost/images/bg_error01.png'/>" alt="접근 권한이 없는 페이지">
+			<img src="<c:url value='/boardresources/image/bg_error01.png'/>" alt="접근 권한이 없는 페이지">
 			<p class="small"><span>접근 권한이 없는 페이지</span>를 요청하셨습니다.</p>
 			<ul>
 				<li>먼저 운영자에게 문의하여 사용권한을 얻으신 후<br> 접속하시기 바랍니다.  </li>

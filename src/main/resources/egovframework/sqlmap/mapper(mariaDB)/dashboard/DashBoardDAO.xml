@@ -6,7 +6,7 @@
 	<select id="selectTestList" parameterType="DashBoardVO" resultType="DashBoardVO">
 		SELECT * 
 			FROM nss_board 
-			ORDER BY REG_DT DESC
+			ORDER BY BOARD_SEQ DESC
 			<if test='"N".equals(excelYn)'>
 	 			<!-- LIMIT #{recordCountPerPage} OFFSET #{firstIndex} 는 아래와 같은 뜻-->
 			    LIMIT #{firstIndex}, #{recordCountPerPage} 

@@ -18,7 +18,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<title>세션 만료 - 모바일 우편 통지서비스 v1.0</title>
+	<title>세션 만료 - 게시판 기능 넣기 프로젝트 v1.0</title>
 </head>
 <body>
 <!-- 전체 레이아웃 -->
@@ -27,7 +27,7 @@
 		<div>
 			<p class="big">죄송합니다.</p>
 			<span class="bar"></span>
-			<img src="<c:url value='/mobipost/images/bg_error01.png'/>" alt="시스템오류">
+			<img src="<c:url value='/boardresources/image/bg_error01.png'/>" alt="시스템오류">
 			<p class="small"><span>세션</span>이 만료되었습니다.<br/>다시 접속해주세요.</p>
 			<%--<ul>--%>
 				<%--<li>죄송합니다. 시스템 오류로 인하여 정상적인 서비스가 불가능합니다.</li>--%>

@@ -17,11 +17,11 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="keywords" content="관리자, 모바일 우편 통지서비스 v1.0" />
-    <meta http-equiv="description" content="모바일 우편 통지서비스 v1.0 관리자 페이지 입니다." />
-    <meta name="Copyright" content="모바일 우편 통지서비스 v1.0">
+	<meta name="keywords" content="관리자, 게시판 기능 넣기 프로젝트 v1.0" />
+    <meta http-equiv="description" content="게시판 기능 넣기 프로젝트 v1.0 관리자 페이지 입니다." />
+    <meta name="Copyright" content="게시판 기능 넣기 프로젝트 v1.0">
 
-    <title>모바일 우편 통지서비스 v1.0</title>
+    <title>게시판 기능 넣기 프로젝트 v1.0</title>
 </head>
 <body>
  <!-- 전체 레이아웃 -->
@@ -30,7 +30,7 @@
                     <div>
                         <p class="big"><span>500 Error</span></p>
                         <span class="bar"></span>
-                        <img src="<c:url value='/mobipost/images/bg_error01.png'/>" alt="접근 권한이 없는 페이지">
+                        <img src="<c:url value='/boardresources/image/bg_error01.png'/>" alt="접근 권한이 없는 페이지">
                         <ul>
                             <li>네트워크에 문제가 발생했습니다. </li>
                         </ul>

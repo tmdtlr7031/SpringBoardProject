@@ -30,12 +30,12 @@ public class ImagePaginationRenderer extends AbstractPaginationRenderer implemen
 	}
 
 	public void initVariables(){
-		firstPageLabel    = "<a href=\"#\"  class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/mobipost/images/common/page_front.gif\" alt=\"처음\"   border=\"0\"/></a>";
-        previousPageLabel = "<a href=\"#\" class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/mobipost/images/common/page_prev.gif\"    alt=\"이전\"/></a>";
+		firstPageLabel    = "<a href=\"#\"  class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/boardresources/image/page_front.gif\" alt=\"처음\"   border=\"0\"/></a>";
+        previousPageLabel = "<a href=\"#\" class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/boardresources/image/page_prev.gif\"    alt=\"이전\"/></a>";
         currentPageLabel  = "<a href=\"#none\" class=\"on\">{0}</a>";
         otherPageLabel    = "<a href=\"#\" onclick=\"{0}({1});return false; \">{2}</a>";
-        nextPageLabel     = "<a href=\"#\" class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/mobipost/images/common/page_next.gif\"    alt=\"다음\"/></a>";
-        lastPageLabel     = "<a href=\"#\" class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/mobipost/images/common/page_back.gif\" alt=\"마지막\" /></a>";
+        nextPageLabel     = "<a href=\"#\" class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/boardresources/image/page_next.gif\"    alt=\"다음\"/></a>";
+        lastPageLabel     = "<a href=\"#\" class=\"pn\" onclick=\"{0}({1});return false; \"><img src=\"" + servletContext.getContextPath() +  "/boardresources/image/page_back.gif\" alt=\"마지막\" /></a>";
 	}
 
 	public void setServletContext(ServletContext servletContext) {

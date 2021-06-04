@@ -17,10 +17,10 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="keywords" content="관리자, 모바일 우편 통지서비스 v1.0" />
-    <meta http-equiv="description" content="모바일 우편 통지서비스 v1.0 관리자 페이지 입니다." />
-    <meta name="Copyright" content="모바일 우편 통지서비스 v1.0">
-    <title>모바일 우편 통지서비스 v1.0</title>
+	<meta name="keywords" content="관리자, 게시판 기능 넣기 프로젝트 v1.0" />
+    <meta http-equiv="description" content="게시판 기능 넣기 프로젝트 v1.0 관리자 페이지 입니다." />
+    <meta name="Copyright" content="게시판 기능 넣기 프로젝트 v1.0">
+    <title>게시판 기능 넣기 프로젝트 v1.0</title>
 </head>
 <body>
 <!-- 전체 레이아웃 -->
@@ -29,7 +29,7 @@
                     <div>
 			            <p class="big">죄송합니다.</p>
 			            <span class="bar"></span>
-			            <img src="<c:url value='/mobipost/images/bg_error01.png'/>" alt="접근 권한이 없는 페이지">
+			            <img src="<c:url value='/boardresources/image/bg_error01.png'/>" alt="접근 권한이 없는 페이지">
 			            <p class="small"><span>접근 권한이 없는 페이지</span>를 요청하셨습니다.</p>
 			            <ul>
 			                <li>먼저 운영자에게 문의하여 사용권한을 얻으신 후<br> 접속하시기 바랍니다.  </li>

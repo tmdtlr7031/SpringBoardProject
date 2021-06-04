@@ -84,33 +84,46 @@
 			document.listFrm.submit();
 		});
 		
-		selectListData();
+		// 지금은 검색조건이 없어서 pageIndex로 걸었지만, 초기 진입 여부는 검색조건 기준으로 잡아도 되고 다른거 만들어서 잡아도될 듯 
+		if ("${comonVO.pageIndex}" == '1') {
+			selectListData(true);
+		}
 	});
 
 
 	/* 페이징 */
 	function fnLinkPage(pageIndex){
 		document.listFrm.pageIndex.value = pageIndex;
-		document.listFrm.action = "${pageContext.request.contextPath }/dynamicList/list/selectDynamicBoardList.do";
-		document.listFrm.submit();
+		selectListData(false);
+// 		document.listFrm.action = "${pageContext.request.contextPath }/dynamicList/list/selectDynamicBoardList.do";
+// 		document.listFrm.submit();
 	}
 	
-	function selectListData() {
+	/* 리스트 조회*/
+	function selectListData(initFlag) {
+		var paramData = '';
+		// 초기 리스트 조회 여부 
+		if (!initFlag) {
+			paramData = $('#listFrm').serialize()
+		}
+		
 		$.ajax({
 			type : "POST" ,
 			dataType : "html" ,
 			url : '<c:url value="/dynamicList/list/selectDynamicBoardListAjax.do"/>',
 			cache : false ,
-	 		data : {tmp : 1} ,
-// 	 		data : $('#listFrm').serialize() ,
+	 		data : paramData,
 			success : function(data) {
 				/*
 				 *  data의 경우 문자열이기 때문에 임시로 태그에 넣어 선택자로 접근가능하게 만듦. => jQuery('<div>') : div태그 생성  
 				 *  .html()이 "선택한 요소 안"이 대상. 이를 위해 감쌓는데 그게 싫으면 outerHTML하면 될 듯
 				 */ 
 				var html = jQuery('<div>').html(data);
-				var contents = html.find("#targetTemp").html();  
+				var contents = html.find("#targetTemp").html();
+				var paginationInfo = html.find("#paging").html();
 				$('#listArea').html(contents);
+				$('.page_num').html(paginationInfo);
+				
 			},
 			error: function (xhr, status, error) {
 				alert("오류가 발생하였습니다.");
@@ -186,9 +199,9 @@
 		</div>
 	</form>
 	<div class="page_num">
-		<span class="num">
-			<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="fnLinkPage"/>
-		</span>
+<!-- 		<span class="num"> -->
+<%-- 			<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="fnLinkPage"/> --%>
+<!-- 		</span> -->
 	</div>
 	
 	<!-- 레이어 팝업 생길 곳 -->

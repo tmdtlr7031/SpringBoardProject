@@ -35,7 +35,7 @@
 	<meta name="Publisher" content="nss">
 	<meta name="Copyright" content="nss_test">
 
-    <title>모바일 우편 통지서비스 v1.0</title>
+    <title>게시판 기능 넣기 프로젝트 v1.0</title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/x-icon" href="<c:url value='${pageContext.request.contextPath }/boardresources/image/favicon.ico'/>" />

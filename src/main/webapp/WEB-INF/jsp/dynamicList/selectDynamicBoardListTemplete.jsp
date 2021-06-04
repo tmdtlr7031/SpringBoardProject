@@ -47,5 +47,10 @@
 				</c:otherwise> 
 			</c:choose> 
 		</tbody> 
-	</table> 
+	</table>
+</div>
+<div id="paging">
+	<span class="num">
+		<ui:pagination paginationInfo="${paginationInfo}" type="image" jsFunction="fnLinkPage"/>
+	</span>
 </div>
